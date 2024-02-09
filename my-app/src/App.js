@@ -1,18 +1,15 @@
-import Header from './Header';
-import Technologies from './Technologies';
 import './App.css';
+import React from 'react';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Profile from './components/Profile';
 
 const App = () => {
   return (
-    <div>
-
+    <div className='app-wrapper'>
       <Header />
-      <Technologies />
-      <ul>
-        <li>
-          123
-        </li>
-      </ul>
+      <Navbar />
+      <Profile />
     </div>
   );
 }

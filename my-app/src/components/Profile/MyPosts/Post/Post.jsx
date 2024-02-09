@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Post.module.css';
 
+
 const Post = (props) => {
     return (<div >
         <div className={s.item}>
@@ -9,7 +10,7 @@ const Post = (props) => {
                 {props.message}
             </div>
 
-            <span>like</span>
+            <button onClick={props.likeIncrement}>like</button>
         </div>
     </div>
     )

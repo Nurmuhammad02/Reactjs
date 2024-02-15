@@ -7,9 +7,7 @@ import Dialogs from './components/Dialogs/Dialogs';
 import { Route, Routes } from 'react-router-dom';
 
 const App = (props) => {
-
   return (
-    
       <div className='app-wrapper'>
         <Header />
         <Navbar />

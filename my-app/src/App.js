@@ -8,17 +8,17 @@ import { Route, Routes } from 'react-router-dom';
 
 const App = (props) => {
   return (
-      <div className='app-wrapper'>
-        <Header />
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/dialogs' element={<DialogsContainer store={props.store} />} />
-            <Route path='/profile' element={<Profile store={props.store}/>} />
-          </Routes>
-        </div>
+    <div className='app-wrapper'>
+      <Header />
+      <Navbar />
+      <div className='app-wrapper-content'>
+        <Routes>
+          <Route path='/dialogs' element={<DialogsContainer />} />
+          <Route path='/profile' element={<Profile />} />
+        </Routes>
       </div>
-    
+    </div>
+
   );
 }
 

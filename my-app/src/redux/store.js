@@ -7,7 +7,7 @@ let store = {
     _state: {
         profilePage: {
             posts: [
-                { id: 1, message: 'Hi', likesCount: 12 },
+                { id: 1, message: 'Hi', likesCount: 15 },
                 { id: 2, message: 'How is your friend?', likesCount: 11 },
             ],
             newPostText: 'Lorem ipsum ',
@@ -45,19 +45,16 @@ let store = {
         console.log('changed');
     },
     dispatch(action) {
-        this._state.profileReducer = profileReducer(this._state.profilePage, action);
-        this._state.dialogsReducer = dialogsReducer(this._state.dialogsPage, action);
-        this._state.sidebarReducer = sidebarReducer(this._state.sidebarPage, action);
-
-        this._callSubscriber(this._state);
+        console.log(this)
+        // profileReducer(store._state.profilePage, action);
+        // this._state.profilePage = profileReducer(store._state.profilePage, action);
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        // this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action);
+    
+        // this._callSubscriber();
     }
+    
 }
-
-
-
-
-
-
 
 export default store;
 window._store = store;

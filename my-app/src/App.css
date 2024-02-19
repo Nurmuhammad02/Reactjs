@@ -1,7 +1,11 @@
+body {
+  background: #F0F2F5;;
+}
+
 .app-wrapper {
   margin: 0 auto;
   display: grid;
-  max-width: 1200px;
+  max-width: 1400px;
   grid-template-areas:
     "h h"
     "n c";
@@ -12,5 +16,7 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background: #b0c215;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
 }

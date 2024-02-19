@@ -1,14 +1,17 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import moon from '../../../assets/moon.png'
+import ava from '../../../assets/ava.png'
 
 const ProfileInfo = () => {
     return (
-        <div>
-            <div>
-                <img src="https://th.wallhaven.cc/small/85/8586my.jpg" alt="" />
+        <div className={s.profile}>
+            <div className={s.profile__block}>
+                <img src={moon} alt="" className={s.profile_block__img}/>
             </div>
             <div className={s.descriptionBlock}>
-                ava
+            <img src={ava} alt="" className={s.profile_block__ava}/>
+            <span>Unknown Unknown</span>
             </div>
         </div>
     );

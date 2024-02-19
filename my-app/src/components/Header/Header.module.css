@@ -1,9 +1,38 @@
 .header {
   grid-area: h;
-  background: #085dc4;
-  
+  height: 60px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-left: 40px;
 }
 .header img {
-  width: 100px; 
-  border-radius: 50px;
+  max-width: 130px; 
+  max-height: 50px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.menu {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+.menu__links {
+  display: flex;
+  gap: 20px;
+}
+
+.menu__link {
+  list-style-type: none; 
+}
+.menu__link a{
+  font-weight: 500;
+  color: #2E363E;
+  text-decoration: none;
+}
+
+.menu__link :hover{
+  color: #EA5455;
 }

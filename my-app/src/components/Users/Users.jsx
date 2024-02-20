@@ -4,22 +4,19 @@ import axios from 'axios';
 import ava from '../../assets/ava.png';
 
 class Users extends React.Component {
-    
-    constructor(props) {
-        super(props);
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(res => this.props.setUsers(
-                    res.data.items
-                ))
-    
-    }
-    
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        .then(res => this.props.setUsers(
+            res.data.items
+        ))
 
+    }
+   
     render() {
         return (
             <div className={s.users}>
-                
-                    
+
+
                 {
                     this.props.users.map(u => <div key={u.id} >
                         <span>

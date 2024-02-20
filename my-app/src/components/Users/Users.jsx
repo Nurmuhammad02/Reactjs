@@ -1,64 +1,62 @@
 import React from 'react';
 import s from './Users.module.css';
+import axios from 'axios';
+import ava from '../../assets/ava.png';
 
-// followed={u.followed} name={u.name} status={u.status} location={u.location}
-const Users = (props) => {
-    if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1, photoUrl: 'https://i.pinimg.com/736x/19/2f/6e/192f6ee2577c75e151d6d6b53fc889f4.jpg',
-                followed: true, fullName: 'Dmitry', status: 'Boss', location: { city: 'Minsk', country: 'Belarus' }
-            },
-            {
-                id: 2, photoUrl: 'https://i.pinimg.com/564x/2b/b5/45/2bb5457d792451c80ed2e128b0804577.jpg',
-                folowed: false, fullName: 'Andrey', status: 'Boss', location: { city: 'Moscow', country: 'Russia' }
-            },
-            {
-                id: 3, photoUrl: 'https://i.pinimg.com/564x/69/51/60/695160f563ddaada2f85f30dd34cdd1e.jpg',
-                folowed: false, fullName: 'Sveta', status: 'Boss', location: { city: 'Kiev', country: 'Ukraine' }
-            },
-        ])
+class Users extends React.Component {
+    
+    constructor(props) {
+        super(props);
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(res => this.props.setUsers(
+                    res.data.items
+                ))
+    
     }
+    
 
-
-    return (
-        <div className={s.users}>
-            {
-                props.users.map(u => <div key={u.id} >
-                    <span>
-                        <div>
-                            <img src={u.photoUrl} className={s.userPhoto} alt="" />
-                        </div>
-                        <div>
-                            {u.followed
-                                ? <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
-                                : <button onClick={() => { props.follow(u.id) }}>Follow</button>
-                            }
-                        </div>
-                    </span>
-                    <span>
+    render() {
+        return (
+            <div className={s.users}>
+                
+                    
+                {
+                    this.props.users.map(u => <div key={u.id} >
                         <span>
                             <div>
-                                {u.fullName}
+                                <img src={u.photos.small !== null ? u.photos.small : ava} className={s.userPhoto} alt="" />
                             </div>
                             <div>
-                                {u.status}
+                                {u.followed
+                                    ? <button onClick={() => { this.props.unfollow(u.id) }}>Unfollow</button>
+                                    : <button onClick={() => { this.props.follow(u.id) }}>Follow</button>
+                                }
                             </div>
                         </span>
                         <span>
-                            <div>
-                                {u.location.country}
-                            </div>
-                            <div>
-                                {u.location.city}
-                            </div>
+                            <span>
+                                <div>
+                                    {u.name}
+                                </div>
+                                <div>
+                                    {u.status}
+                                </div>
+                            </span>
+                            <span>
+                                <div>
+                                    {/* {u.location.country} */}
+                                </div>
+                                <div>
+                                    {/* {u.location.city} */}
+                                </div>
+                            </span>
                         </span>
-                    </span>
-                </div>
-                )
-            }
-        </div>
-    )
+                    </div>
+                    )
+                }
+            </div>
+        )
+    }
 }
 
 

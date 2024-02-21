@@ -5,17 +5,41 @@ import ava from '../../assets/ava.png';
 
 class Users extends React.Component {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-        .then(res => this.props.setUsers(
-            res.data.items
-        ))
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items);
+                this.props.setTotalUsersCount(res.data.totalCount);
+            })
+
 
     }
-   
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(res => this.props.setUsers(
+                res.data.items
+            ))
+
+    }
+
     render() {
+        // let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize) ;
+        let pagesCount = 10 ;
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+
         return (
             <div className={s.users}>
 
+                {pages.map((p) => {
+                    return <button className={this.props.currentPage === p && s.selectedPage}
+                        onClick={(e) => { this.onPageChanged(p); }}
+                    >{p}</button>
+                })
+                }
 
                 {
                     this.props.users.map(u => <div key={u.id} >

@@ -1,4 +1,8 @@
 .userPhoto {
   max-height: 150px;
- 
+  max-width: 200px;
+}
+
+.selectedPage {
+  font-weight: 700;
 }

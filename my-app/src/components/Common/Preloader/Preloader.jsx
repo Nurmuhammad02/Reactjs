@@ -5,7 +5,7 @@ let Preloader = () => {
     return (
         <div className={s.lazyLoading}>
             <div className={s.center_body}>
-                <div class={s.loader_spanne_20}>
+                <div className={s.loader_spanne_20}>
                     <span></span>
                     <span></span>
                     <span></span>

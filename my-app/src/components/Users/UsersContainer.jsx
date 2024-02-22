@@ -3,7 +3,7 @@ import { follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setIsFe
 import { connect } from 'react-redux';
 import Users from './Users';
 import axios from 'axios';
-import s from './Users.module.css';
+
 import Preloader from '../Common/Preloader/Preloader';
 
 class UsersContainer extends React.Component {
@@ -34,7 +34,7 @@ class UsersContainer extends React.Component {
                 <Preloader />
                 : null}
             <Users
-                totalusersCount={this.props.totalUsersCount}
+                totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
@@ -47,6 +47,7 @@ class UsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
+   
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

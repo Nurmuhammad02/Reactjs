@@ -8,7 +8,7 @@
 .descriptionBlock span{
   font-size: 1.5rem;
   font-weight: 600;
-
+  margin-top: -40px;
 }
 .profile_block__img{
   width: 100%;
@@ -17,9 +17,14 @@
   object-position: top;
 }
 .profile_block__ava{
-  max-width: 130px;
-  max-height: 130px;
+  width: 130px;
+  height: 130px;
   border-radius: 100px;
+  border-color: white;
+  border-width: 7px;
+  border-style: solid;
+  margin-top: -80px;
+  overflow: hidden;
   object-fit: cover;
   object-position: top;
 }

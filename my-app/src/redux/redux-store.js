@@ -10,7 +10,7 @@ const reducers = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    authPage: authReducer
+    auth: authReducer
 });
 
 let store = createStore(reducers)

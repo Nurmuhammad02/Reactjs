@@ -1,6 +1,6 @@
 .header {
   grid-area: h;
-  height: 60px;
+  height: 70px;
   border-radius: 50px;
   display: flex;
   justify-content: start;
@@ -16,7 +16,8 @@
 
 .menu {
   display: flex;
-  justify-content: end;
+  justify-content: start;
+  margin-left: 140px;
   width: 100%;
 }
 .menu__links {
@@ -35,4 +36,20 @@
 
 .menu__link :hover{
   color: #EA5455;
+}
+
+.loginBlock {
+  background-color: #0077ff;
+  width: 150px;
+  height: 40px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.loginBlock a{
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
 }

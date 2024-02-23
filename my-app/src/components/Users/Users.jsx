@@ -12,7 +12,6 @@ let Users = (props) => {
         pages.push(i)
     }
 
-
     return (<div className={s.users}>
 
         {pages.map((p) => {
@@ -23,6 +22,7 @@ let Users = (props) => {
         }
 
         {
+
             props.users.map(u => <div key={u.id} >
                 <span>
                     <div>
@@ -33,7 +33,8 @@ let Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id);
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
                                     headers: {
@@ -45,11 +46,10 @@ let Users = (props) => {
                                             props.unfollow(u.id)
                                         }
                                     })
-
-
+                                props.toggleFollowingProgress(false, u.id);
                             }}>Unfollow</button>
-                            : <button onClick={() => {
-
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id);
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                     withCredentials: true,
                                     headers: {
@@ -61,6 +61,7 @@ let Users = (props) => {
                                             props.follow(u.id);
                                         }
                                     })
+                                props.toggleFollowingProgress(false, u.id);
                             }}>Follow</button>
                         }
                     </div>

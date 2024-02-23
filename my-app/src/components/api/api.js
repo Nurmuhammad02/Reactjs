@@ -9,29 +9,26 @@ const instance = axios.create({
     }
 })
 
+const constThen = (res) => {
+    return res.data;
+}
+
 const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
-            withCredentials: true
-        })
-            .then(res => {
-                return res.data;
-            })
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(constThen)
     },
     getLogin() {
-        return instance.get(`auth/me`, {
-            withCredentials: true
-        })
-            .then(res => {
-                return res.data;
-            })
+        return instance.get(`auth/me`).then(constThen)
     },
     getUsersProfile(userId) {
-        return instance.get(`profile/` + userId)
-            .then(res => {
-                return res.data;
-            })
-    }
+        return instance.get(`profile/` + userId).then(constThen)
+    },
+    follow(userId) {
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(constThen)
+    },
+    unfollow(userId) {
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(constThen)
+    },
 }
 
 export default usersAPI;

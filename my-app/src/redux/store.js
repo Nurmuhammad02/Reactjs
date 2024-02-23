@@ -1,3 +1,11 @@
+/*
+THIS STORE IS USELESS FOR THIS APP
+
+THIS STORE NESSECARY FOR MORE DETAIL ABOUT USE STORE AND REDUX STORE
+
+THIS STORE IS A REVIVAL OF THE PAST
+
+*/
 // import profileReducer from "./profile-reducer";
 // import dialogsReducer from "./dialogs-reducer";
 // import sidebarReducer from "./sidebar-reducer";

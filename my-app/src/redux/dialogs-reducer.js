@@ -1,6 +1,8 @@
+//action type
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
+//inital data
 let initialState = {
     dialogs: [
         { id: 1, name: 'Dimych', },
@@ -19,6 +21,7 @@ let initialState = {
     newMessageBody: ""
 };
 
+//actions
 const dialogsReducer = (state = initialState, action) => {
 
     let stateCopy = {
@@ -40,6 +43,7 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
+//action creator
 export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
 export const updateNewMessageBodyCreator = (body) => ({ type: UPDATE_NEW_MESSAGE_BODY, body: body })
 

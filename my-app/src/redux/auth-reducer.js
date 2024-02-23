@@ -1,6 +1,7 @@
+//action type
 const SET_USER_DATA = 'SET_USER_DATA';
 
-
+//initial data
 let initialState = {
     id: 2,
     email: null,
@@ -8,6 +9,8 @@ let initialState = {
     isAuth: false,
 };
 
+
+//actions
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
@@ -21,7 +24,7 @@ const authReducer = (state = initialState, action) => {
             return state;
     }
 }
-
+//action creator
 export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} })
 
 

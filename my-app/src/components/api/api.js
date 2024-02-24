@@ -13,12 +13,9 @@ const constThen = (res) => {
     return res.data;
 }
 
-const usersAPI = {
+export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(constThen)
-    },
-    getLogin() {
-        return instance.get(`auth/me`).then(constThen)
     },
     getUsersProfile(userId) {
         return instance.get(`profile/` + userId).then(constThen)
@@ -31,7 +28,15 @@ const usersAPI = {
     },
 }
 
-export default usersAPI;
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`).then(constThen)
+    },
+}
+
+
+
+
 
 
 

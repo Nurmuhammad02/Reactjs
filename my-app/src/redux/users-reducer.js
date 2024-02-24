@@ -1,4 +1,4 @@
-import usersAPI from "../components/api/api";
+import {usersAPI} from "../components/api/api";
 
 //action type
 const FOLLOW = 'FOLLOW';

@@ -1,3 +1,5 @@
+import getUsers from "../components/api/api";
+
 //action type
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -17,7 +19,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isAuth : true
+                isAuth: true
             }
 
         default:
@@ -25,7 +27,19 @@ const authReducer = (state = initialState, action) => {
     }
 }
 //action creator
-export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} })
+export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId, email, login } })
+
+//thunk-reducer
+export const getLogin = () => {
+    return (dispatch) => {
+        getUsers.getLogin().then(data => {
+            if (data.resultCode === 0) {
+                let { id, login, email } = data.data;
+                dispatch(setAuthUserData(id, email, login));
+            }
+        })
+    }
+}
 
 
 export default authReducer;

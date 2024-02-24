@@ -1,4 +1,4 @@
-
+import getUsers from "../components/api/api";
 //action type
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -12,7 +12,7 @@ let initialState = {
     ],
     newPostText: 'Lorem ipsum ',
     profile: null,
-    
+
 };
 
 //actions
@@ -46,5 +46,19 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
+
+//thunk-redux
+
+export const getUsersProfileFromURL = () => {
+    return (dispatch) => {
+        const currentPath = window.location.pathname;
+        let userId = parseInt(currentPath.split('/').slice(-1)[0], 10) || 30849;
+
+        getUsers.getUsersProfile(userId).then(data => {
+            dispatch(setUserProfile(data));
+        })
+    }
+}
+
 
 export default profileReducer;

@@ -1,8 +1,9 @@
-import {usersAPI} from "../components/api/api";
+import { profileAPI, usersAPI } from "../components/api/api";
 //action type
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 //initial data
 let initialState = {
@@ -12,7 +13,7 @@ let initialState = {
     ],
     newPostText: 'Lorem ipsum ',
     profile: null,
-
+    status: ""
 };
 
 //actions
@@ -37,6 +38,8 @@ const profileReducer = (state = initialState, action) => {
         }
         case SET_USER_PROFILE:
             return { ...state, profile: action.profile }
+        case SET_STATUS:
+            return { ...state, status: action.status }
         default:
             return state;
     }
@@ -45,17 +48,33 @@ const profileReducer = (state = initialState, action) => {
 //action creator
 export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
-const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
+export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
+export const setStatus = (status) => ({ type: SET_STATUS, status })
 
 //thunk-redux
 
-export const getUsersProfileFromURL = () => {
+export const getUsersProfileFromURL = (userId) => {
     return (dispatch) => {
-        const currentPath = window.location.pathname;
-        let userId = parseInt(currentPath.split('/').slice(-1)[0], 10) || 30849;
-
         usersAPI.getUsersProfile(userId).then(data => {
             dispatch(setUserProfile(data));
+        })
+    }
+}
+
+export const getStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI.getStatusProfile(userId).then(data => {
+            dispatch(setStatus(data));
+        })
+    }
+}
+
+export const updateStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatusProfile(status).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setStatus(status));
+            }
         })
     }
 }

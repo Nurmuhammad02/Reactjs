@@ -10,6 +10,7 @@ const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader />
     }
+
     return (
         <div className={s.profile}>
             <div className={s.profile__block}>
@@ -24,7 +25,7 @@ const ProfileInfo = (props) => {
                     }
                 </span>
                 <span>
-                    <ProfileStatus status={['Status']}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
                 </span>
             </div>
         </div>

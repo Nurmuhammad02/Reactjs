@@ -33,7 +33,8 @@ const authReducer = (state = initialState, action) => {
         case SEND_LOGIN_DATA:
             return {
                 ...state,
-                ...action.data,
+                email: action.email,
+                password: action.password,
                 isAuth: true
             }
 
@@ -67,12 +68,11 @@ export const deleteAuthUserData = () => {
         })
     }
 }
-export const postAuthData = () => {
+export const postAuthData = (email, password) => {
     return (dispatch) => {
         authAPI.logIn().then(data => {
-            if (data.resultCode === 0) {
-                let { email, password } = data.data;
-                dispatch(setAuthUserData(email, password));
+            if (data.resultCode === 1) {
+                dispatch(setAuthLogin(email, password));
             }
         })
     }

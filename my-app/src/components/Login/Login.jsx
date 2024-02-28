@@ -3,6 +3,7 @@ import s from "./Login.module.css";
 import { useForm, SubmitHandler } from "react-hook-form"
 
 const LoginForm = (props) => {
+    
     const {
         register,
         handleSubmit,
@@ -12,11 +13,16 @@ const LoginForm = (props) => {
     } = useForm({
         mode: "onBlur"
     })
-    
+    const onSubmit = (data) => {
+        
+
+        alert(JSON.stringify(data));
+        reset();
+    }
     
     return (
         <div className={s.background}>
-            <form className={s.form} onSubmit={handleSubmit()}>
+            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <label className={s.name}>First Name:</label>
                 <input className={s.nameInput} {...register("firstName", { required: "This field is required", minLength: { value: 5, message: "At least 5 symbols" } })} />
 
@@ -36,10 +42,6 @@ const LoginForm = (props) => {
 }
 
 const Login = (props) => {
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
-       
-    }
     return <div className={s.main}>
         <h1 className={s.title}>Login</h1>
         <LoginForm />

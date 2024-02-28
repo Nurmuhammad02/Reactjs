@@ -18,7 +18,7 @@ export const usersAPI = {
     },
     getUsersProfile(userId) {
         console.log('It gets from profileAPI');
-        return profileAPI.getUsersProfile(userId)
+        return profileAPI.getUsersProfile(userId);
     },
     follow(userId) {
         return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(constThen)
@@ -44,6 +44,13 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`).then(constThen)
     },
+    logIn() {
+        return instance.post(`auth/login`).then(constThen)
+    },
+    logOut() {
+        return instance.delete(`auth/login`).then(constThen)
+    },
+    
 }
 
 

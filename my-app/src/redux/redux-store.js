@@ -6,6 +6,7 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import { thunk } from "redux-thunk";
 
+
 //reducers for get redux-store
 const reducers = combineReducers({
     profilePage: profileReducer,

@@ -22,11 +22,6 @@ let initialState = {
 //actions
 const dialogsReducer = (state = initialState, action) => {
 
-    let stateCopy = {
-        ...state,
-        messages: [...state.messages]
-    };
-
     switch (action.type) {
         case SEND_MESSAGE:
             let body = action.newMessageBody;

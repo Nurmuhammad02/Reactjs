@@ -2,7 +2,6 @@ import { authAPI } from "../components/api/api";
 
 //action type
 const SET_USER_DATA = 'SET_USER_DATA';
-const SEND_LOGIN_DATA = 'SEND_LOGIN_DATA';
 const DELETE_LOGIN_DATA = 'DELETE_LOGIN_DATA';
 
 //initial data
@@ -30,22 +29,14 @@ const authReducer = (state = initialState, action) => {
                 ...action.data,
                 isAuth: false
             }
-        case SEND_LOGIN_DATA:
-            return {
-                ...state,
-                email: action.email,
-                password: action.password,
-                isAuth: true
-            }
 
         default:
             return state;
     }
 }
 //action creator
-export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId, email, login } })
-export const setAuthLogin = (email, password) => ({ type: SEND_LOGIN_DATA, data: { email, password } })
-export const setAuthLogOut = (userId, email, login) => ({ type: SEND_LOGIN_DATA, data: { userId, email, login } })
+export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
+export const setAuthLogOut = (userId, email, login, isAuth) => ({ type: DELETE_LOGIN_DATA, data: { userId, email, login, isAuth } })
 
 //thunk-reducer
 export const getAuthUserData = () => {
@@ -53,26 +44,27 @@ export const getAuthUserData = () => {
         authAPI.me().then(data => {
             if (data.resultCode === 0) {
                 let { id, login, email } = data.data;
-                dispatch(setAuthUserData(id, email, login));
+                dispatch(setAuthUserData(id, email, login, true));
             }
         })
     }
 }
+
 export const deleteAuthUserData = () => {
     return (dispatch) => {
         authAPI.logOut().then(data => {
             if (data.resultCode === 1) {
-                let { id, login, email } = data.data;
-                dispatch(setAuthLogOut(id, email, login));
+                dispatch(setAuthLogOut(null, null, null, false));
             }
         })
     }
 }
-export const postAuthData = (email, password) => {
+
+export const logIn = (email, password, rememberMe) => {
     return (dispatch) => {
-        authAPI.logIn().then(data => {
-            if (data.resultCode === 1) {
-                dispatch(setAuthLogin(email, password));
+        authAPI.logIn(email, password, rememberMe).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(getAuthUserData())
             }
         })
     }

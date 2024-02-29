@@ -1,8 +1,14 @@
 import React from 'react';
 import s from './Header.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 
 const Header = (props) => {
+
+    let logOut = () => {
+        props.deleteAuthUserData();
+    }
+
+   
     return (
         <header className={s.header}>
             <img src="https://e7.pngegg.com/pngimages/594/855/png-clipart-facebook-logo-facebook-computer-icons-logo-background-black-white-text.png" alt="" />
@@ -28,9 +34,9 @@ const Header = (props) => {
                     props.isAuth ? props.login : null
                 }
                 {
-                    props.isAuth ? <button onClick={() => {props.deleteAuthUserData()}} className={s.logout}>Logout</button> : <NavLink to={'/login'}> Login</NavLink>
+                    props.isAuth ? <button onClick={() => { logOut() }} className={s.logout}>Logout</button> : <NavLink to={'/login'}> Login</NavLink>
                 }
-                
+
             </div>
         </header>
     )

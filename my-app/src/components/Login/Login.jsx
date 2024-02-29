@@ -1,6 +1,9 @@
 import React from 'react';
 import s from "./Login.module.css";
 import { useForm, SubmitHandler } from "react-hook-form"
+import { connect } from "react-redux";
+import { logIn } from '../../redux/auth-reducer';
+import { Navigate } from 'react-router-dom';
 
 const Login = (props) => {
     const {
@@ -13,16 +16,19 @@ const Login = (props) => {
         mode: "onBlur"
     });
 
-    const onSubmit = (data) => {
-        props.postAuthData(data.email, data.password);
+    const onLogIn = (data) => {
+        props.logIn(data.email, data.password, data.rememberMe);
         reset();
+    }
+    if (props.isAuth) {
+        return <Navigate to="/profile" />
     }
 
     return (
         <div className={s.main}>
             <h1 className={s.title}>Login</h1>
             <div className={s.background}>
-                <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+                <form className={s.form} onSubmit={handleSubmit(onLogIn)}>
                     <label className={s.name}>Email:</label>
                     <input className={s.nameInput} {...register("email", {
                         required: "This field is required", pattern: {
@@ -47,5 +53,8 @@ const Login = (props) => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
 
-export default Login;
+export default connect(mapStateToProps, { logIn })(Login);

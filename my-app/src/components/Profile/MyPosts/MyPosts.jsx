@@ -28,10 +28,10 @@ const MyPosts = (props) => {
         </div>
         <form className={s.postsBlock__form} onSubmit={handleSubmit(onAddPost)}>
             <div className={s.postsBlock__formElements}>
-                <textArea className={
+                <TextArea className={
                     errors?.newPostText?.message ? s.error : s.noError
                 } {...register("newPostText", { required: "The field is required", minLength: { value: 8, message: "At least 8 symbols" }, maxLength: { value: 30, message: "No more than 30 symbols" } })} />
-                <div  className={s.errorMessage}>{errors?.newPostText && <span>{errors?.newPostText?.message || "Error!"}</span>}</div>
+                <div className={s.errorMessage}>{errors?.newPostText && <span>{errors?.newPostText?.message || "Error!"}</span>}</div>
             </div>
             <div>
                 <button type="submit" >Add post</button>
@@ -40,7 +40,7 @@ const MyPosts = (props) => {
     </div>
 }
 
-const textArea = (props) => {
+const TextArea = (props) => {
     return (
         <textarea className={s.postsBlock__textArea} placeholder='Post message' />
     )

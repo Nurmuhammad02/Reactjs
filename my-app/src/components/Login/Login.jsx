@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { connect } from "react-redux";
 import { logIn } from '../../redux/auth-reducer';
 import { Navigate } from 'react-router-dom';
+import { ErrorMessage } from "@hookform/error-message";
 
 const Login = (props) => {
     const {
@@ -18,7 +19,9 @@ const Login = (props) => {
 
     const onLogIn = (data) => {
         props.logIn(data.email, data.password, data.rememberMe);
-        reset();
+
+        console.log(props.errorMessage);
+
     }
     if (props.isAuth) {
         return <Navigate to="/profile" />
@@ -36,14 +39,22 @@ const Login = (props) => {
                             message: "Invalid email format"
                         }, minLength: { value: 5, message: "At least 5 symbols" }
                     })} />
-
+                    <ErrorMessage
+                        errors={errors}
+                        name="email"
+                        render={({ message }) => (
+                            <p className={s.error}>{message}</p>
+                        )}
+                    />
                     <div className={s.error}>
-                        {errors?.email && <span>{errors?.email?.message || "Error!"}</span>}
+
                     </div>
                     <label className={s.name}>Password:</label>
-                    <input type="password" className={s.nameInput} {...register("password", { required: "This field is required", minLength: { value: 8, message: "At least 8 symbols" } })} />
-                    <div className={s.error}>{errors?.password && <span>{errors?.password?.message || "Error!"}</span>}</div>
+                    <input type="password" className={s.nameInput}  {...register("password", { required: "This field is required", minLength: { value: 8, message: "At least 8 symbols" } })} />
+                    <ErrorMessage className={s.error} errors={errors} name="password" render={({ message }) => <p className={s.error}>{message}</p>} />
                     <input className={s.checkbox} type="checkbox" {...register("checkbox", { required: false })} />
+                    {props.errorMessage[props.errorMessage.length - 1]}
+                    {/* <div className={s.error}>{errors?.email && <span>{errors?.email?.message || props.errorMessage[props.errorMessage.length - 1]}</span>}</div> */}
                     <div>
                         <input className={s.button} type="submit" />
                     </div>
@@ -54,7 +65,8 @@ const Login = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    errorMessage: state.auth.errorMessage,
 })
 
 export default connect(mapStateToProps, { logIn })(Login);

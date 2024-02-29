@@ -16,7 +16,6 @@ const MyPosts = (props) => {
     let postsElements = props.posts.map(p => <Post id={p.id} likesCount={p.likesCount} message={p.message} key={p.id} />)
 
     const onAddPost = (data) => {
-        console.log(data.newPostText);
         props.addPost(data.newPostText);
         reset();
     }

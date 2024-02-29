@@ -14,7 +14,7 @@ const MyPosts = (props) => {
         mode: "onBlur"
     });
     let postsElements = props.posts.map(p => <Post id={p.id} likesCount={p.likesCount} message={p.message} key={p.id} />)
- 
+
     const onAddPost = (data) => {
         props.addPost(data.newPostText);
         reset();
@@ -28,13 +28,22 @@ const MyPosts = (props) => {
         </div>
         <form className={s.postsBlock__form} onSubmit={handleSubmit(onAddPost)}>
             <div className={s.postsBlock__formElements}>
-                <textarea className={s.postsBlock__textArea} {...register("newPostText", { required: false })} />
+                <textArea className={
+                    errors?.newPostText?.message ? s.error : s.noError
+                } {...register("newPostText", { required: "The field is required", minLength: { value: 8, message: "At least 8 symbols" }, maxLength: { value: 30, message: "No more than 30 symbols" } })} />
+                <div  className={s.errorMessage}>{errors?.newPostText && <span>{errors?.newPostText?.message || "Error!"}</span>}</div>
             </div>
             <div>
                 <button type="submit" >Add post</button>
             </div>
         </form>
     </div>
+}
+
+const textArea = (props) => {
+    return (
+        <textarea className={s.postsBlock__textArea} placeholder='Post message' />
+    )
 }
 
 

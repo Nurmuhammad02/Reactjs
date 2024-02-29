@@ -7,3 +7,14 @@
 
 .postsBlock__posts {
 }
+
+.error {
+  border: 1px solid red;
+  outline: red;
+}
+.noError {
+  border: none;
+}
+.errorMessage {
+  color: red;
+}

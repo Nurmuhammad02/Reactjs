@@ -1,9 +1,17 @@
 import React from 'react';
-import { succesFollow, succesUnfollow, setCurrentPage, toggleFollowingProgress, getUsers, follow, unfollow } from '../../redux/users-reducer';
-import { connect } from 'react-redux';
+import {
+    succesFollow,
+    succesUnfollow,
+    setCurrentPage,
+    toggleFollowingProgress,
+    getUsers,
+    follow,
+    unfollow
+} from '../../redux/users-reducer';
+import {connect} from 'react-redux';
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +26,7 @@ class UsersContainer extends React.Component {
     render() {
         return <>
             {this.props.isFetching ?
-                <Preloader />
+                <Preloader/>
                 : null}
             <Users
                 totalUsersCount={this.props.totalUsersCount}
@@ -35,8 +43,18 @@ class UsersContainer extends React.Component {
     }
 }
 
+// let mapStateToProps = (state) => {
+//
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+//}
 let mapStateToProps = (state) => {
-
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -48,9 +66,6 @@ let mapStateToProps = (state) => {
 }
 
 
-
-
-
-export default withAuthRedirect(connect(mapStateToProps, 
-    { succesFollow, succesUnfollow, setCurrentPage, toggleFollowingProgress, getUsers, follow, unfollow })
-    (UsersContainer));
+export default withAuthRedirect(connect(mapStateToProps,
+    {succesFollow, succesUnfollow, setCurrentPage, toggleFollowingProgress, getUsers, follow, unfollow})
+(UsersContainer));

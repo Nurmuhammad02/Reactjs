@@ -3,21 +3,21 @@ import s from './ProfileInfo.module.css';
 import moon from '../../../assets/moon.png'
 import ava from '../../../assets/ava.png'
 import Preloader from '../../Common/Preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
 
     if (!props.profile) {
-        return <Preloader />
+        return <Preloader/>
     }
 
     return (
         <div className={s.profile}>
             <div className={s.profile__block}>
-                <img src={moon} alt="" className={s.profile_block__img} />
+                <img src={moon} alt="" className={s.profile_block__img}/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.small || ava} alt="" className={s.profile_block__ava} />
+                <img src={props.profile.photos.small || ava} alt="" className={s.profile_block__ava}/>
                 <span>
                     {
                         props.profile.fullName ? props.profile.fullName : "Unknown Unknown"
@@ -25,7 +25,7 @@ const ProfileInfo = (props) => {
                     }
                 </span>
                 <span>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 </span>
             </div>
         </div>

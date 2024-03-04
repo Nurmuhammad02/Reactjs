@@ -8,7 +8,7 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 class ProfileContainer extends React.Component {
     componentDidMount() {
         const currentPath = window.location.pathname;
-        var userId = parseInt(currentPath.split('/').slice(-1)[0], 10) || 30849;
+        let userId = parseInt(currentPath.split('/').slice(-1)[0], 10) || 30849;
         this.props.getUsersProfileFromURL(userId);
         this.props.getStatus(userId);
     }

@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css';
 import moon from '../../../assets/moon.png'
 import ava from '../../../assets/ava.png'
 import Preloader from '../../Common/Preloader/Preloader';
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 
@@ -25,7 +25,7 @@ const ProfileInfo = (props) => {
                     }
                 </span>
                 <span>
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 </span>
             </div>
         </div>

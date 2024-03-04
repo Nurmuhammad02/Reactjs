@@ -1,19 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './ProfileInfo.module.css';
-import Preloader from '../../Common/Preloader/Preloader';
 
 const ProfileStatusWithHooks = (props) => {
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status)
+    let activeEditMode = () => {
+        setEditMode(true);
+    };
+    let deactiveEditMode = () => {
+        setEditMode(false);
+        props.updateStatus(status);
+    };
+    let onStatusChange = (e) => {
+        setStatus(e.currentTarget.value)
+    }
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
+
 
     return (
         <>
-            {
+            {!editMode &&
                 <div className={s.profile}>
-                    {props.status || "Status"}
+                    <span onDoubleClick={activeEditMode}>{props.status || "Status"}</span>
                 </div>
             }
-            {
+            {editMode &&
                 <div className={s.profile}>
-                    <input autoFocus={true}
+                    <input onChange={onStatusChange} onBlur={deactiveEditMode} autoFocus={true}
+                           value={status}
                            type="text"/>
                 </div>
             }

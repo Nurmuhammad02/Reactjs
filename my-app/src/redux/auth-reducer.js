@@ -1,7 +1,7 @@
-import { authAPI } from "../components/api/api";
+import {authAPI} from "../components/api/api";
 
 //action type
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const DELETE_LOGIN_DATA = 'DELETE_LOGIN_DATA';
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 //initial data
@@ -33,51 +33,48 @@ const authReducer = (state = initialState, action) => {
         case ERROR_MESSAGE:
             let error = action.errorMessage;
             let updatedErrorMessage = state.errorMessage.slice();
-            updatedErrorMessage.push(error); 
-            return { ...state, errorMessage: updatedErrorMessage };
+            updatedErrorMessage.push(error);
+            return {...state, errorMessage: updatedErrorMessage};
 
         default:
             return state;
     }
 }
 //action creator
-export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
-export const setAuthLogOut = (userId, email, login, isAuth) => ({ type: DELETE_LOGIN_DATA, data: { userId, email, login, isAuth } })
-export const setErrorMessage = (errorMessage) => ({ type: ERROR_MESSAGE, errorMessage })
+export const setAuthUserData = (userId, email, login, isAuth) => ({
+    type: SET_USER_DATA,
+    data: {userId, email, login, isAuth}
+})
+export const setAuthLogOut = (userId, email, login, isAuth) => ({
+    type: DELETE_LOGIN_DATA,
+    data: {userId, email, login, isAuth}
+})
+export const setErrorMessage = (errorMessage) => ({type: ERROR_MESSAGE, errorMessage})
 
 //thunk-reducer
-export const getAuthUserData = () => {
-    return (dispatch) => {
-        authAPI.me().then(data => {
-            if (data.resultCode === 0) {
-                let { id, login, email } = data.data;
-                dispatch(setAuthUserData(id, email, login, true));
-            }
-        })
+export const getAuthUserData = () => async (dispatch) => {
+    let res = await authAPI.me();
+    if (res.data.resultCode === 0) {
+        let {id, login, email} = res.data.data;
+        dispatch(setAuthUserData(id, email, login, true));
     }
 }
 
-export const deleteAuthUserData = () => {
-    return (dispatch) => {
-        authAPI.logOut().then(data => {
-            if (data.resultCode === 1) {
-                dispatch(setAuthLogOut(null, null, null, false));
-            }
-        })
-    }
+export const deleteAuthUserData = () => async (dispatch) => {
+    let res = await authAPI.logOut();
+        if (res.data.resultCode === 1) {
+            dispatch(setAuthLogOut(null, null, null, false));
+        }
 }
 
-export const logIn = (email, password, rememberMe) => {
-    return (dispatch) => {
-        authAPI.logIn(email, password, rememberMe).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-                dispatch(setErrorMessage(message))
-            }
-        })
-    }
+export const logIn = (email, password, rememberMe) => async (dispatch) => {
+    let res = await authAPI.logIn(email, password, rememberMe)
+        if (res.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        } else {
+            let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error";
+            dispatch(setErrorMessage(message))
+        }
 }
 
 

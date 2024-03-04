@@ -2,11 +2,12 @@ import React, {createRef} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post'
 import {useForm} from "react-hook-form"
-const MyPosts = (props) => {
+
+const MyPosts = React.memo(props => {
+    console.log("rerender")
     const {
         register,
         handleSubmit,
-        watch,
         formState: {errors},
         reset
     } = useForm({
@@ -42,7 +43,7 @@ const MyPosts = (props) => {
             </div>
         </form>
     </div>
-}
+})
 
 
 export default MyPosts;

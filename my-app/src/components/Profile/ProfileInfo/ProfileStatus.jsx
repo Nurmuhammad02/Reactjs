@@ -1,13 +1,11 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
-import Preloader from '../../Common/Preloader/Preloader';
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.PureComponent {
     state = {
         editMode: false,
         status: this.props.status
     };
-    
     activeEditMode = () => {
         this.setState({ editMode: true });
     };
@@ -30,8 +28,12 @@ class ProfileStatus extends React.Component {
         }
     }
 
-    render() {
+    // shouldComponentUpdate(nextProps, nextState) {
+    // return nextProps !== this.props || nextState !== this.state;
+    // }
 
+    render() {
+        console.log("status render")
         return (
             <>
                 {this.state.editMode ?

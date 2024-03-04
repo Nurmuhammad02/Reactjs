@@ -4,6 +4,7 @@ import moon from '../../../assets/moon.png'
 import ava from '../../../assets/ava.png'
 import Preloader from '../../Common/Preloader/Preloader';
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
 
@@ -25,7 +26,7 @@ const ProfileInfo = (props) => {
                     }
                 </span>
                 <span>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 </span>
             </div>
         </div>

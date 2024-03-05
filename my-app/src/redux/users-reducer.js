@@ -18,6 +18,7 @@ let initialState = {
     page: 1,
     isFetching: true,
     followingInProgress: [],
+    portionSize: 10,
 };
 
 //actions

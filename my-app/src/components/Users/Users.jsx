@@ -12,11 +12,12 @@ let Users = ({
                  unfollow,
                  follow,
                  followingInProgress,
+                 portionSize,
                  ...props
              }) => {
     return (<div className={s.users}>
-            <Paginator currentPage={12} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
-                       pageSize={pageSize}/>
+            <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
+                       pageSize={pageSize} portionSize={portionSize}/>
             {
                 users.map(u => <User follow={follow} unfollow={unfollow} followingInProgress={followingInProgress}
                                      user={u} key={u.id}/>)

@@ -18,11 +18,14 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsers,
+    getPortionSize
 } from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
+
     componentDidMount() {
+        debugger
         let {currentPage, pageSize} = this.props;
         this.props.requestUsers(currentPage, pageSize);
     }
@@ -30,7 +33,6 @@ class UsersContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         let {pageSize} = this.props;
         this.props.getUsers(pageNumber, pageSize);
-
     }
 
     render() {
@@ -48,6 +50,7 @@ class UsersContainer extends React.Component {
                 unfollow={this.props.unfollow}
                 toggleFollowingProgress={this.props.toggleFollowingProgress}
                 followingInProgress={this.props.followingInProgress}
+                portionSize={this.props.portionSize}
             />
         </>
     }
@@ -60,11 +63,22 @@ let mapStateToProps = (state) => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state)
+        followingInProgress: getFollowingInProgress(state),
+        portionSize: getPortionSize(state),
     }
 }
 
 
 export default withAuthRedirect(connect(mapStateToProps,
-    {succesFollow, succesUnfollow, setCurrentPage, toggleFollowingProgress, requestUsers, follow, unfollow})
+    {
+        succesFollow,
+        succesUnfollow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        requestUsers,
+        follow,
+        unfollow,
+        getPortionSize,
+        getUsers: requestUsers
+    })
 (UsersContainer));

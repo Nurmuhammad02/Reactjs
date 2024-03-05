@@ -2,15 +2,16 @@ import './App.css';
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import {Route, Routes, Navigate} from 'react-router-dom';
+import {Route, Routes, Navigate, BrowserRouter} from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/Common/Preloader/Preloader";
+import store from './redux/redux-store';
 
 class App extends React.Component {
     componentDidMount() {
@@ -36,7 +37,6 @@ class App extends React.Component {
                         </Routes>
                     </div>
                 </div>
-
             );
         }
     }
@@ -46,4 +46,16 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 
-export default compose(connect(mapStateToProps, {initializeApp}))(App);
+const AppContainer = compose(connect(mapStateToProps, {initializeApp}))(App);
+
+const MainApp = (props) => {
+    return <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </BrowserRouter>
+    </React.StrictMode>
+}
+
+export default MainApp;

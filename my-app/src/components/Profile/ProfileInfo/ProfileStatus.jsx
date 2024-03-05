@@ -7,21 +7,22 @@ class ProfileStatus extends React.PureComponent {
         status: this.props.status
     };
     activeEditMode = () => {
-        this.setState({ editMode: true });
+        this.setState({editMode: true});
     };
     deactiveEditMode = () => {
-        this.setState({ editMode: false });
+        this.setState({editMode: false});
         this.props.updateStatus(this.state.status);
     };
-    
+
     onStatusChange = (e) => {
         this.setState({
             status: e.currentTarget.value
         })
-        
+
     }
+
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.status !== this.props.status) {
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
@@ -33,12 +34,13 @@ class ProfileStatus extends React.PureComponent {
     // }
 
     render() {
-        console.log("status render")
+
         return (
             <>
                 {this.state.editMode ?
                     <div className={s.profile}>
-                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactiveEditMode} type="text" value={this.state.status} />
+                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactiveEditMode}
+                               type="text" value={this.state.status}/>
                     </div>
                     :
                     <div onDoubleClick={this.activeEditMode} className={s.profile}>

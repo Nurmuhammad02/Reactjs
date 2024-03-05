@@ -15,6 +15,7 @@ const ProfileStatusWithHooks = (props) => {
         setStatus(e.currentTarget.value)
     }
     useEffect(() => {
+        console.log(props.status)
         setStatus(props.status);
     }, [props.status]);
 

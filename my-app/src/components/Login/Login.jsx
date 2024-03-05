@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./Login.module.css";
-import {useForm, SubmitHandler} from "react-hook-form"
+import {useForm} from "react-hook-form"
 import {connect} from "react-redux";
 import {logIn} from '../../redux/auth-reducer';
 import {Navigate} from 'react-router-dom';
@@ -10,8 +10,7 @@ const Login = ({errorMessage, logIn, isAuth}) => {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: {errors, isValid},
+        formState: {errors},
         reset
     } = useForm({
         mode: "onBlur"
@@ -19,6 +18,7 @@ const Login = ({errorMessage, logIn, isAuth}) => {
 
     const onLogIn = (data) => {
         logIn(data.email, data.password, data.rememberMe);
+        reset()
     }
     if (isAuth) {
         return <Navigate to="/profile"/>

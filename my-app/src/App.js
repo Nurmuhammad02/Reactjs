@@ -8,7 +8,7 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
-import { initializeApp } from "./redux/app-reducer";
+import { initializeApp } from "./redux/app-reducer.ts";
 import Preloader from "./components/Common/Preloader/Preloader";
 import store from './redux/redux-store';
 

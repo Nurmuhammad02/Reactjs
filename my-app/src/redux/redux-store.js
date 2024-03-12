@@ -6,7 +6,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import {thunk} from "redux-thunk";
-import appReducer from "./app-reducer";
+import appReducer from "./app-reducer.ts";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //reducers for get redux-store

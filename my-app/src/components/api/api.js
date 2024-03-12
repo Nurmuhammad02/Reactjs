@@ -13,7 +13,6 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
     },
     getUsersProfile(userId) {
-        console.log('It gets from profileAPI');
         return profileAPI.getUsersProfile(userId);
     },
     follow(userId) {

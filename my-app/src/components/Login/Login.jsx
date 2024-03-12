@@ -17,7 +17,6 @@ const Login = ({ errorMessage, logIn, isAuth, captchaURL }) => {
     });
 
     const onLogIn = (data) => {
-        console.log(data.captcha, data.email);
         logIn(data.email, data.password, data.rememberMe, data.captcha);
         reset()
     }

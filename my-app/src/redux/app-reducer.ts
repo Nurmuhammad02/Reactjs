@@ -1,4 +1,5 @@
-import {getAuthUserData} from "./auth-reducer";
+// import {getAuthUserData} from "./auth-reducer.ts";
+import  {getAuthUserData} from "./auth-reducer.ts";
 
 //action type
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';

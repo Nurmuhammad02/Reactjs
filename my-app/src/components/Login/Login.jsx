@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./Login.module.css";
 import { useForm } from "react-hook-form"
 import { connect } from "react-redux";
-import { getCaptchaURL, logIn } from '../../redux/auth-reducer';
+import { getCaptchaURL, logIn } from '../../redux/auth-reducer.ts';
 import { Navigate } from 'react-router-dom';
 import { ErrorMessage } from "@hookform/error-message";
 

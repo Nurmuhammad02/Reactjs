@@ -8,15 +8,15 @@ const DELETE_LOGIN_DATA = 'DELETE_LOGIN_DATA';
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 const GET_CAPTCHA_URL_SUCCESS = 'GET_CAPTCHA_URL_SUCCESS';
 //initial data
-type InitialStateType = {
-    id: number,
-    email: null | string,
-    password: null | string,
-    login: null | string,
-    isAuth: boolean,
-    errorMessage: string[],
-    captchaURL: null | string, // required captcha URL
-}
+// type InitialStateType = {
+//     id: number,
+//     email: null | string,
+//     password: null | string,
+//     login: null | string,
+//     isAuth: boolean,
+//     errorMessage: string[],
+//     captchaURL: null | string, // required captcha URL
+// }
 
 let initialState = {
     id: 2,
@@ -24,11 +24,11 @@ let initialState = {
     password: null as null | string,
     login: null as null | string,
     isAuth: false,
-    errorMessage: [],
+    errorMessage: [] as Array<string>,
     captchaURL: null as null | string, // required captcha URL
 };
 
-// export type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 
 //actions

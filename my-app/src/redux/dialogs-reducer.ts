@@ -9,7 +9,7 @@ type DialogsType = {
 
 type MessagesType = {
     id: number,
-    message: string // Добавляем поле message
+    message: string
 };
 
 let initialState = {

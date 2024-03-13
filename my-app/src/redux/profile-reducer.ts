@@ -1,29 +1,12 @@
 import {profileAPI, usersAPI} from "../components/api/api";
+import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
 //action type
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 //initial data
-type PostsType = {
-    id: number,
-    message: string,
-    likesCount: number
-}
-type PhotosType = {
-    small: string | null
-    large: string | null
-}
-type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
+
 
 type ProfileType = {
     userId: number
@@ -44,7 +27,7 @@ let initialState = {
     newPostsText: ""
 };
 
-export type InitialStateType = typeof initialState
+ type InitialStateType = typeof initialState
 
 //actions
 const profileReducer = (state = initialState, action: any): InitialStateType => {

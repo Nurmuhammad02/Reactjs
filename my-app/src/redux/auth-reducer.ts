@@ -28,7 +28,7 @@ let initialState = {
     captchaURL: null as null | string, // required captcha URL
 };
 
-export type InitialStateType = typeof initialState;
+ type InitialStateType = typeof initialState;
 
 
 //actions

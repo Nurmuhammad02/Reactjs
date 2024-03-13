@@ -1,16 +1,10 @@
 //action type
+import {DialogsType, MessagesType} from "../Types/types.ts";
+
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 //initial data
-type DialogsType = {
-    id: number,
-    name: string
-};
 
-type MessagesType = {
-    id: number,
-    message: string
-};
 
 let initialState = {
     dialogs: [
@@ -29,11 +23,11 @@ let initialState = {
     ] as Array<MessagesType>,
 };
 
-export type InitialStateType = typeof initialState;
+ type InitialStateType = typeof initialState
 
 
 //actions
-const dialogsReducer = (state = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: any):InitialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             let body = action.newMessageBody;

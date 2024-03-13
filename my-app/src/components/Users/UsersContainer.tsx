@@ -21,15 +21,37 @@ import {
     getUsers,
     getPortionSize
 } from "../../redux/users-selectors";
+import {UserType} from "../../Types/types.ts";
+import {AppStateType} from "../../redux/redux-store.ts";
+import {compose} from "redux";
 
-class UsersContainer extends React.Component {
+type MapStateToPropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+    portionSize: number
+}
+type MapDispatchPropsType = {
+    getUsers: (currentPage: number, pageSize: number) => void
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+
+}
+type OwnPropsType = {}
+
+type PropsType = MapStateToPropsType & MapDispatchPropsType & OwnPropsType
+
+class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let {currentPage, pageSize} = this.props;
-        this.props.requestUsers(currentPage, pageSize);
+        this.props.getUsers(currentPage, pageSize);
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber: number) => {
         let {pageSize} = this.props;
         this.props.getUsers(pageNumber, pageSize);
     }
@@ -47,7 +69,6 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-                toggleFollowingProgress={this.props.toggleFollowingProgress}
                 followingInProgress={this.props.followingInProgress}
                 portionSize={this.props.portionSize}
             />
@@ -55,7 +76,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -68,16 +89,9 @@ let mapStateToProps = (state) => {
 }
 
 
-export default withAuthRedirect(connect(mapStateToProps,
+export default compose(connect<MapStateToPropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
     {
-        succesFollow,
-        succesUnfollow,
-        setCurrentPage,
-        toggleFollowingProgress,
-        requestUsers,
         follow,
         unfollow,
-        getPortionSize,
         getUsers: requestUsers
-    })
-(UsersContainer));
+    })(UsersContainer));

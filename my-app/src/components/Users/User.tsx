@@ -3,8 +3,16 @@ import s from './Users.module.css';
 import ava from '../../assets/ava.png';
 import { NavLink } from 'react-router-dom';
 import cn from "classnames";
+import { UserType} from "../../Types/types.ts";
 
-let User = ({ user, followingInProgress, unfollow, follow }) => {
+type PropsType = {
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+    followingInProgress: Array<number>
+    user: UserType
+}
+
+let User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow }) => {
     return (
 
         <div className={cn(s.someStyles,

@@ -3,11 +3,20 @@ import s from './ProfileInfo.module.css';
 import moon from '../../../assets/moon.png'
 import ava from '../../../assets/ava.png'
 import Preloader from '../../Common/Preloader/Preloader';
-import ProfileStatus from "./ProfileStatus";
+// import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import {ContactsType, PhotosType, ProfileType} from "../../../Types/types.ts";
 
-const ProfileInfo = ({profile,status,updateStatus}) => {
 
+
+type PropsType = {
+    profile: ProfileType
+    status: string
+    updateStatus: () => void
+}
+
+
+const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus}) => {
     if (!profile) {
         return <Preloader/>
     }
@@ -22,7 +31,6 @@ const ProfileInfo = ({profile,status,updateStatus}) => {
                 <span>
                     {
                         profile.fullName ? profile.fullName : "Unknown Unknown"
-
                     }
                 </span>
                 <span>

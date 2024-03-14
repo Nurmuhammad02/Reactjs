@@ -1,9 +1,5 @@
 import React from 'react';
 import {
-    succesFollow,
-    succesUnfollow,
-    setCurrentPage,
-    toggleFollowingProgress,
     follow,
     unfollow,
     requestUsers
@@ -23,7 +19,6 @@ import {
 } from "../../redux/users-selectors";
 import {UserType} from "../../Types/types.ts";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {compose} from "redux";
 
 type MapStateToPropsType = {
     currentPage: number
@@ -89,9 +84,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export default compose(connect<MapStateToPropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
-    {
-        follow,
-        unfollow,
-        getUsers: requestUsers
-    })(UsersContainer));
+export default withAuthRedirect(connect<MapStateToPropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
+    { follow,  unfollow, getUsers: requestUsers })(UsersContainer));

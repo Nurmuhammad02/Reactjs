@@ -1,5 +1,4 @@
-import {authAPI, securityAPI} from "../components/api/api" ;
-import * as stream from "stream";
+import {authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI} from "../components/api/api";
 import {AppStateType} from "./redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
@@ -111,15 +110,15 @@ type GetStateType = () => AppStateType;
 type DispatchType = Dispatch<ActionsType>;
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
-    let res = await authAPI.me();
-    if (res.data.resultCode === 0) {
-        let {id, login, email} = res.data.data;
+    let meData = await authAPI.me();
+    if (meData.resultCode === ResultCodesEnum.Success) {
+        let {id, login, email} = meData.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
 }
 export const deleteAuthUserData = (): ThunkType => async (dispatch) => {
     let res = await authAPI.logOut();
-    if (res.data.resultCode === 1) {
+    if (res.data.resultCode === ResultCodesEnum.Error) {
         dispatch(setAuthLogOut(null, null, null, false));
     }
 }
@@ -129,15 +128,15 @@ export const getCaptchaURL = (): ThunkType => async (dispatch) => {
     dispatch(getCaptchaURLSuccess(captchaURL))
 }
 export const logIn = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
-    let res = await authAPI.logIn(email, password, rememberMe, captcha)
-    if (res.data.resultCode === 0) {
+    let loginData = await authAPI.logIn(email, password, rememberMe, captcha)
+    if (loginData.resultCode === ResultCodesEnum.Success) {
         // success , get auth data
         dispatch(getAuthUserData())
     } else {
-        if (res.data.resultCode === 10) {
+        if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
             dispatch(getCaptchaURL())
         }
-        let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error";
+        let message: any = loginData.messages.length > 0 ? loginData.messages[0] : "Some error";
         dispatch(setErrorMessage(message))
     }
 }

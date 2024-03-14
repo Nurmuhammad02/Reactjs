@@ -1,3 +1,5 @@
+import * as buffer from "buffer";
+
 export type DialogsType = {
     id: number,
     name: string

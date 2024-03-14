@@ -7,7 +7,7 @@ import {
 import {connect} from 'react-redux';
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect.jsx';
 import {
     getCurrentPage,
     getFollowingInProgress,

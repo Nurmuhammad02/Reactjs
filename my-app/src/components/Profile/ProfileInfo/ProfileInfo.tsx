@@ -17,6 +17,7 @@ type PropsType = {
 
 
 const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus}) => {
+    console.log(profile)
     if (!profile) {
         return <Preloader/>
     }

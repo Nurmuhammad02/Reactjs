@@ -14,7 +14,6 @@ type PropsType = {
 
 let User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow }) => {
     return (
-
         <div className={cn(s.someStyles,
             //example for classnames
             {

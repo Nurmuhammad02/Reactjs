@@ -1,27 +1,42 @@
 import React from 'react';
 import s from "./Login.module.css";
-import { useForm } from "react-hook-form"
-import { connect } from "react-redux";
-import { getCaptchaURL, logIn } from '../../redux/auth-reducer.ts';
-import { Navigate } from 'react-router-dom';
-import { ErrorMessage } from "@hookform/error-message";
+import {useForm} from "react-hook-form"
+import {connect} from "react-redux";
+import {getCaptchaURL, logIn} from '../../redux/auth-reducer.ts';
+import {Navigate} from 'react-router-dom';
+import {ErrorMessage} from "@hookform/error-message";
+import {AppStateType} from "../../redux/redux-store.ts";
+import {UserType} from "../../Types/types.ts";
 
-const Login = ({ errorMessage, logIn, isAuth, captchaURL }) => {
+type MapStateToPropsType = {
+    errorMessage: string[]
+    isAuth: boolean
+    captchaURL: string | null
+}
+type MapDispatchToPropsType = {
+    logIn: (email: string, password: string, rememberMe: boolean, captcha: string) => void,
+}
+
+type OwnType = {}
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnType
+
+const Login: React.FC<PropsType> = ({errorMessage, logIn, isAuth, captchaURL}) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
         reset
     } = useForm({
         mode: "onBlur"
     });
 
-    const onLogIn = (data) => {
+    const onLogIn = (data: any) => {
         logIn(data.email, data.password, data.rememberMe, data.captcha);
         reset()
     }
     if (isAuth) {
-        return <Navigate to="/profile" />
+        return <Navigate to="/profile"/>
     }
 
     return (
@@ -34,12 +49,12 @@ const Login = ({ errorMessage, logIn, isAuth, captchaURL }) => {
                         required: "This field is required", pattern: {
                             value: /^\S+@\S+\.\S+$/,
                             message: "Invalid email format"
-                        }, minLength: { value: 5, message: "At least 5 symbols" }
+                        }, minLength: {value: 5, message: "At least 5 symbols"}
                     })} />
                     <ErrorMessage
                         errors={errors}
                         name="email"
-                        render={({ message }) => (
+                        render={({message}) => (
                             <p className={s.error}>{message}</p>
                         )}
                     />
@@ -49,21 +64,21 @@ const Login = ({ errorMessage, logIn, isAuth, captchaURL }) => {
                     <label className={s.name}>Password:</label>
                     <input type="password" className={s.nameInput}  {...register("password", {
                         required: "This field is required",
-                        minLength: { value: 8, message: "At least 8 symbols" }
+                        minLength: {value: 8, message: "At least 8 symbols"}
                     })} />
-                    <ErrorMessage className={s.error} errors={errors} name="password"
-                        render={({ message }) => <p className={s.error}>{message}</p>} />
-                    <input className={s.checkbox} type="checkbox" {...register("checkbox", { required: false })} />
+                    <ErrorMessage errors={errors} name="password"
+                                  render={({message}) => <p className={s.error}>{message}</p>}/>
+                    <input className={s.checkbox} type="checkbox" {...register("checkbox", {required: false})} />
                     {errorMessage[errorMessage.length - 1]}
                     {/* <div className={s.error}>{errors?.email && <span>{errors?.email?.message || props.errorMessage[props.errorMessage.length - 1]}</span>}</div> */}
-                    {captchaURL && <img src={captchaURL} alt="Captcha" />}
+                    {captchaURL && <img src={captchaURL} alt="Captcha"/>}
                     {captchaURL && <input type='text' {...register("captcha", {
                         required: true
                     })} />
                     }
 
                     <div>
-                        <input className={s.button} type="submit" />
+                        <input className={s.button} type="submit"/>
                     </div>
                 </form>
             </div>
@@ -71,10 +86,11 @@ const Login = ({ errorMessage, logIn, isAuth, captchaURL }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     errorMessage: state.auth.errorMessage,
     captchaURL: state.auth.captchaURL
 })
 
-export default connect(mapStateToProps, { logIn, getCaptchaURL })(Login);
+export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnType, AppStateType>(mapStateToProps, {logIn})(Login);

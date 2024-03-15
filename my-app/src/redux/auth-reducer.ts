@@ -134,6 +134,7 @@ export const logIn = (email: string, password: string, rememberMe: boolean, capt
         // success , get auth data
         dispatch(getAuthUserData())
     } else {
+
         if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
             dispatch(getCaptchaURL())
         }

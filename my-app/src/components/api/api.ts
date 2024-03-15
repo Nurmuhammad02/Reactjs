@@ -23,3 +23,9 @@ export type GetItemsType = {
     totalCount: number
     error: string | null
 }
+
+export type ResponseType<D = {}, RC = ResultCodesEnum & ResultCodeForCaptcha> = {
+    data: D
+    messages: string[]
+    resultCode: RC
+}

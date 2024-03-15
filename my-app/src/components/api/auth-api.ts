@@ -1,22 +1,20 @@
-import {instance, ResultCodeForCaptcha, ResultCodesEnum} from "./api.ts";
+import {instance, ResponseType} from "./api.ts";
 
-
-type MeResponseType = {
-    data: { id: number, email: string, login: string }
-    resultCode: ResultCodesEnum
-    messages: string[]
+type MeResponseDataType = {
+    id: number
+    email: string
+    login: string
 }
- type LoginResponseType = {
-    data: { userId: number }
-    resultCode: ResultCodesEnum | ResultCodeForCaptcha
-    messages: string[]
+
+type LoginResponseDataType = {
+    userId: number
 }
 export const authApi = {
     me() {
-        return instance.get<MeResponseType>(`auth/me`).then(res => res.data)
+        return instance.get<ResponseType<MeResponseDataType>>(`auth/me`).then(res => res.data)
     },
     logIn(email: string, password: string, rememberMe = false, captcha: null | string = null) {
-        return instance.post<LoginResponseType>(`auth/login`, {
+        return instance.post<ResponseType<LoginResponseDataType>>(`auth/login`, {
             email,
             password,
             rememberMe,

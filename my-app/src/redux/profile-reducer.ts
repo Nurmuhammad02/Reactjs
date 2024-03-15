@@ -1,10 +1,7 @@
-
 import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
 import {AppStateType} from "./redux-store.ts";
-import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {profileApi} from "../components/api/profile-api.ts";
-import {usersApi} from "../components/api/users-api.ts";
 //action type
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -86,8 +83,8 @@ type DeletePostType = {
 export const deletePost = (postId: number): DeletePostType => ({type: DELETE_POST, postId})
 
 //thunk-redux
-type GetStateType = () => AppStateType;
-type DispatchType = Dispatch<ActionsType>;
+// type GetStateType = () => AppStateType;
+// type DispatchType = Dispatch<ActionsType>;
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 
 

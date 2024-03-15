@@ -1,8 +1,9 @@
-import {authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI} from "../components/api/api";
+import { securityApi} from "../components/api/security-api.ts";
 import {AppStateType} from "./redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
-
+import {authApi} from "../components/api/auth-api.ts";
+import {ResultCodesEnum, ResultCodeForCaptcha} from "../components/api/api.ts";
 
 //action type
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
@@ -110,25 +111,25 @@ type GetStateType = () => AppStateType;
 type DispatchType = Dispatch<ActionsType>;
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
-    let meData = await authAPI.me();
+    let meData = await authApi.me();
     if (meData.resultCode === ResultCodesEnum.Success) {
         let {id, login, email} = meData.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
 }
 export const deleteAuthUserData = (): ThunkType => async (dispatch) => {
-    let res = await authAPI.logOut();
+    let res = await authApi.logOut();
     if (res.data.resultCode === ResultCodesEnum.Error) {
         dispatch(setAuthLogOut(null, null, null, false));
     }
 }
 export const getCaptchaURL = (): ThunkType => async (dispatch) => {
-    let res = await securityAPI.getCaptchaURL()
+    let res = await securityApi.getCaptchaURL()
     const captchaURL = res.data.url;
     dispatch(getCaptchaURLSuccess(captchaURL))
 }
 export const logIn = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
-    let loginData = await authAPI.logIn(email, password, rememberMe, captcha)
+    let loginData = await authApi.logIn(email, password, rememberMe, captcha)
     if (loginData.resultCode === ResultCodesEnum.Success) {
         // success , get auth data
         dispatch(getAuthUserData())

@@ -1,9 +1,10 @@
-import {usersAPI} from "../components/api/api";
+
 import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../Types/types.ts";
 import {AppStateType, InferActionTypes} from "./redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {usersApi} from "../components/api/users-api.ts";
 
 //action type
 
@@ -96,7 +97,7 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => async
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page));
 
-    let res = await usersAPI.getUsers(page, pageSize);
+    let res = await usersApi.getUsers(page, pageSize);
 
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(res.data.items));
@@ -114,11 +115,11 @@ export const _followUnfollowFlow = async (dispatch: DispatchType, userId: number
 }
 
 export const unfollow = (userId: number): ThunkType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.succesUnfollow);
+    _followUnfollowFlow(dispatch, userId, usersApi.unfollow.bind(usersApi), actions.succesUnfollow);
 }
 
 export const follow = (userId: number): ThunkType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.succesFollow);
+    _followUnfollowFlow(dispatch, userId, usersApi.follow.bind(usersApi), actions.succesFollow);
 }
 
 

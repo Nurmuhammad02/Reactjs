@@ -1,8 +1,10 @@
-import {profileAPI, usersAPI} from "../components/api/api";
+
 import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
 import {AppStateType} from "./redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {profileApi} from "../components/api/profile-api.ts";
+import {usersApi} from "../components/api/users-api.ts";
 //action type
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -90,13 +92,13 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 
 
 export const getUsersProfileFromURL = (userId: number):ThunkType => async (dispatch) => {
-    let res = await usersAPI.getUsersProfile(userId);
+    let res = await profileApi.getUsersProfile(userId);
     dispatch(setUserProfile(res.data));
 }
 
 export const getStatus = (userId: number):ThunkType => async (dispatch) => {
     try {
-        let res = await profileAPI.getStatusProfile(userId);
+        let res = await profileApi.getStatusProfile(userId);
         dispatch(setStatus(res.data));
     } catch (e) {
         console.error(e);
@@ -105,7 +107,7 @@ export const getStatus = (userId: number):ThunkType => async (dispatch) => {
 
 export const updateStatus = (status: string):ThunkType => async (dispatch) => {
     try {
-        let res = await profileAPI.updateStatusProfile(status)
+        let res = await profileApi.updateStatusProfile(status)
         if (res.data.resultCode === 0) {
             dispatch(setStatus(status));
         }

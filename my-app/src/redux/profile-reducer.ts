@@ -1,6 +1,5 @@
 import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
-import {AppStateType, BaseThunkType} from "./redux-store.ts";
-import {ThunkAction} from "redux-thunk";
+import { BaseThunkType, InferActionTypes} from "./redux-store.ts";
 import {profileApi} from "../components/api/profile-api.ts";
 //action type
 const ADD_POST = 'ADD-POST';
@@ -59,54 +58,34 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
 }
 
 //action creator
-type ActionsType = AddPostActionCreatorType | SetUserProfileType | SetStatusType | DeletePostType;
 
-type AddPostActionCreatorType = {
-    type: typeof ADD_POST,
-    newPostText: string
+export const actions = {
+    addPostActionCreator: (newPostText: string) => ({type: ADD_POST, newPostText} as const),
+    setUserProfile: (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const),
+    setStatus: (status: string) => ({type: SET_STATUS, status} as const),
+    deletePost: (postId: number) => ({type: DELETE_POST, postId} as const),
 }
-export const addPostActionCreator = (newPostText: string): AddPostActionCreatorType => ({type: ADD_POST, newPostText})
-type SetUserProfileType = {
-    type: typeof SET_USER_PROFILE,
-    profile: ProfileType
-}
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
-type SetStatusType = {
-    type: typeof SET_STATUS,
-    status: string
-}
-export const setStatus = (status: string): SetStatusType => ({type: SET_STATUS, status})
-type DeletePostType = {
-    type: typeof DELETE_POST,
-    postId: number
-}
-export const deletePost = (postId: number): DeletePostType => ({type: DELETE_POST, postId})
-
-//thunk-redux
-// type GetStateType = () => AppStateType;
-// type DispatchType = Dispatch<ActionsType>;
-type ThunkType = BaseThunkType<ActionsType>
 
 
-export const getUsersProfileFromURL = (userId: number):ThunkType => async (dispatch) => {
+export const getUsersProfileFromURL = (userId: number): ThunkType => async (dispatch) => {
     let data = await profileApi.getUsersProfile(userId);
-    dispatch(setUserProfile(data));
+    dispatch(actions.setUserProfile(data));
 }
 
-export const getStatus = (userId: number):ThunkType => async (dispatch) => {
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
     try {
         let data = await profileApi.getStatusProfile(userId);
-        dispatch(setStatus(data));
+        dispatch(actions.setStatus(data));
     } catch (e) {
         console.error(e);
     }
 }
 
-export const updateStatus = (status: string):ThunkType => async (dispatch) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     try {
         let data = await profileApi.updateStatusProfile(status)
         if (data.resultCode === 0) {
-            dispatch(setStatus(status));
+            dispatch(actions.setStatus(status));
         }
     } catch (e) {
         console.error(e);
@@ -115,3 +94,9 @@ export const updateStatus = (status: string):ThunkType => async (dispatch) => {
 
 
 export default profileReducer;
+
+type ActionsType = InferActionTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
+//thunk-redux
+// type GetStateType = () => AppStateType;
+// type DispatchType = Dispatch<ActionsType>;

@@ -124,8 +124,8 @@ export const deleteAuthUserData = (): ThunkType => async (dispatch) => {
     }
 }
 export const getCaptchaURL = (): ThunkType => async (dispatch) => {
-    let res = await securityApi.getCaptchaURL()
-    const captchaURL = res.data.url;
+    let data = await securityApi.getCaptchaURL()
+    const captchaURL = data.url;
     dispatch(getCaptchaURLSuccess(captchaURL))
 }
 export const logIn = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {

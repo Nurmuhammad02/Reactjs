@@ -1,7 +1,7 @@
 
 import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../Types/types.ts";
-import {AppStateType, InferActionTypes} from "./redux-store.ts";
+import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {usersApi} from "../components/api/users-api.ts";
@@ -91,7 +91,7 @@ export const actions = {
 
 type GetStateType = () => AppStateType;
 type DispatchType = Dispatch<ActionsType>;
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = BaseThunkType<ActionsType>
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch, getState) => {
     dispatch(actions.toggleIsFetching(true));

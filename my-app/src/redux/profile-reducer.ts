@@ -2,10 +2,6 @@ import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
 import { BaseThunkType, InferActionTypes} from "./redux-store.ts";
 import {profileApi} from "../components/api/profile-api.ts";
 //action type
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const DELETE_POST = 'DELETE_POST';
 //initial data
 
 
@@ -33,7 +29,7 @@ type InitialStateType = typeof initialState
 //actions
 const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case ADD_POST: {
+        case "SN/PROFILE/ADD-POST": {
             let newPost = {
                 id: 5,
                 message: action.newPostText,
@@ -45,13 +41,12 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
                 newPostsText: ""
             }
         }
-        case SET_USER_PROFILE:
+        case "SN/PROFILE/SET_USER_PROFILE":
             return {...state, profile: action.profile}
-        case SET_STATUS:
+        case "SN/PROFILE/SET_STATUS":
             return {...state, status: action.status}
-        case DELETE_POST:
+        case 'SN/PROFILE/DELETE_POST':
             return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
-
         default:
             return state;
     }
@@ -60,10 +55,10 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
 //action creator
 
 export const actions = {
-    addPostActionCreator: (newPostText: string) => ({type: ADD_POST, newPostText} as const),
-    setUserProfile: (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const),
-    setStatus: (status: string) => ({type: SET_STATUS, status} as const),
-    deletePost: (postId: number) => ({type: DELETE_POST, postId} as const),
+    addPostActionCreator: (newPostText: string) => ({type: "SN/PROFILE/ADD-POST", newPostText} as const),
+    setUserProfile: (profile: ProfileType) => ({type: "SN/PROFILE/SET_USER_PROFILE", profile} as const),
+    setStatus: (status: string) => ({type: "SN/PROFILE/SET_STATUS", status} as const),
+    deletePost: (postId: number) => ({type: "SN/PROFILE/DELETE_POST", postId} as const),
 }
 
 

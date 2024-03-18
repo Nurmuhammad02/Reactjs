@@ -10,19 +10,21 @@ import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer.ts";
 import Preloader from "./components/Common/Preloader/Preloader";
-import store from './redux/redux-store';
-import {withSuspense} from "./hoc/withSuspense";
-
-//import DialogsContainer from './components/Dialogs/DialogsContainer';
-// import ProfileContainer from './components/Profile/ProfileContainer';
+import store, {AppStateType} from './redux/redux-store';
+import {withSuspense} from "./hoc/withSuspense.jsx";
 
 const DialogsContainer = withSuspense(React.lazy(() => import("./components/Dialogs/DialogsContainer")));
 const ProfileContainer = withSuspense(React.lazy(() => import("./components/Profile/ProfileContainer")));
 
-class App extends React.Component {
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+    initializeApp: () => void
+}
 
-    //catch all errors in project 
-    // catchAllUnhandleError = () => {
+class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+
+    //catch all errors in project
+    // catchAllUnhandleError = (e: PromiseRejectionEvent) => {
     //     alert("Some Error")
     // }
 
@@ -65,13 +67,13 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-const AppContainer = compose(connect(mapStateToProps, {initializeApp}))(App);
+const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializeApp}))(App);
 
-const MainApp = (props) => {
+const MainApp: React.FC = () => {
     return <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>

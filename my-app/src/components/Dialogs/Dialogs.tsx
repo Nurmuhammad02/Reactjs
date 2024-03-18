@@ -1,16 +1,24 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form"
+import {useNavigate} from "react-router-dom";
+import {useForm, SubmitHandler} from "react-hook-form"
+import {InitialStateType} from "../../redux/dialogs-reducer.ts";
 
-const Dialogs = (props) => {
+
+type PropsType = {
+    dialogsPage: InitialStateType
+    sendMessage: (newMessage: string) => void
+    // isAuth: boolean
+}
+
+const Dialogs: React.FC<PropsType> = (props) => {
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors, isValid },
+        formState: {errors, isValid},
         reset
     } = useForm({
         mode: "onBlur"
@@ -22,23 +30,23 @@ const Dialogs = (props) => {
 
     let state = props.dialogsPage;
 
-    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.name} key={d.id} />)
-    let messagesElements = state.messages.map(m => <Message message={m.message} messages={m.id} key={m.id} />)
+    let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.name} key={d.id}/>)
+    let messagesElements = state.messages.map(m => <Message message={m.message} messages={m.id} key={m.id}/>)
 
     // let onNewMessageChange = (e) => {
     //     let body = e.target.value;
     //     props.updateNewMessageBody(body);
     // }
-    const addNewMessage = (data) => {
-        props.sendMessage(data.textarea)
+    const addNewMessage = (values: any) => {
+        props.sendMessage(values.textarea)
         reset();
     }
     //с помщью хука useEffect можно использовать в функциональном компоненте useNavigate
-    useEffect(() => {
-        if (!props.isAuth) {
-            return navigate("/login");
-        }
-    });
+    // useEffect(() => {
+    //     if (!props.isAuth) {
+    //         return navigate("/login");
+    //     }
+    // });
     // if (!this.props.isAuth) {
     //     return <Navigate to="/profile" />;
     // }
@@ -54,11 +62,11 @@ const Dialogs = (props) => {
                 <form className={s.form} onSubmit={handleSubmit(addNewMessage)}>
                     <div>
                         <textarea
-                            {...register("textarea", { required: false })}
-                            placeholder='Enter your message' />
+                            {...register("textarea", {required: false})}
+                            placeholder='Enter your message'/>
                     </div>
                     <div>
-                        <input className={s.button} type="submit" />
+                        <input className={s.button} type="submit"/>
                     </div>
                 </form>
             </div>

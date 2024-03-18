@@ -8,9 +8,6 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "noImplicitAny": false,
-    "jsx": "react",
-    "paths": {
-      "@assets/*": ["src/assets/*"]
-    }
+    "jsx": "react"
   }
 }

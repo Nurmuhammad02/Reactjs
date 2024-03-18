@@ -7,17 +7,12 @@ import Preloader from '../../Common/Preloader/Preloader';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {ContactsType, PhotosType, ProfileType} from "../../../Types/types.ts";
 
-
-
 type PropsType = {
     profile: ProfileType
     status: string
     updateStatus: () => void
 }
-
-
 const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus}) => {
-    console.log(profile)
     if (!profile) {
         return <Preloader/>
     }

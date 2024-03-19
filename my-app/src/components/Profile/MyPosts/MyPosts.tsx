@@ -2,8 +2,15 @@ import React, {createRef} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post'
 import {useForm} from "react-hook-form"
+import {PostsType} from "../../../Types/types.ts";
+import {ErrorMessage} from "@hookform/error-message";
 
-const MyPosts = React.memo(props => {
+type PropsType = {
+    posts: Array<PostsType>
+    addPost: (newPostText: string) => void
+}
+
+const MyPosts: React.FC<PropsType> = React.memo(props => {
     const {
         register,
         handleSubmit,
@@ -35,7 +42,15 @@ const MyPosts = React.memo(props => {
                     maxLength: {value: 30, message: "No more than 30 symbols"}
                 })} />
                 <div className={s.errorMessage}>{errors?.newPostText &&
-                    <span>{errors?.newPostText?.message || "Error!"}</span>}</div>
+                    <ErrorMessage
+                        errors={errors}
+                        name="newPostText"
+                        render={({message}) => (
+                            <p className={s.error}>{message}</p>
+                        )}
+                    />
+                }
+                </div>
             </div>
             <div>
                 <button type="submit">Add post</button>

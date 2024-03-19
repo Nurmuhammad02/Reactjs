@@ -51,34 +51,7 @@ export type ProfileType = {
     userId: number
 }
 
-type ServerResponseType<D> = {
-    errorCode: number
-    messages: Array<string>
-    data: D
-}
 
-const response2: ServerResponseType<UserType> = {
-    errorCode: 1,
-    messages: ["some", "array"],
-    data: {
-        id: 1,
-        name: "Nurik",
-        status: "string",
-        photos: {
-            small: '21',
-            large: "213"
-        },
-        followed: true,
-    }
-}
-const response1: ServerResponseType<PhotosType> = {
-    errorCode: 1,
-    messages: ["some", "array"],
-    data: {
-        small: '21',
-        large: "213"
-    }
-}
 
 
 

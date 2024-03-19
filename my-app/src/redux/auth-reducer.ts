@@ -8,6 +8,7 @@ import {ResultCodesEnum, ResultCodeForCaptcha} from "../components/api/api.ts";
 //action type
 //initial data
 
+
 let initialState = {
     id: 2,
     email: null as null | string,

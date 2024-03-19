@@ -1,4 +1,5 @@
 import * as buffer from "buffer";
+import {AppStateType} from "../redux/redux-store.ts";
 
 export type DialogsType = {
     id: number,
@@ -20,6 +21,7 @@ export type PhotosType = {
     small: string | null
     large: string | null
 }
+
 
 export type ContactsType = {
     github: string
@@ -48,4 +50,35 @@ export type ProfileType = {
     photos: PhotosType
     userId: number
 }
+
+type ServerResponseType<D> = {
+    errorCode: number
+    messages: Array<string>
+    data: D
+}
+
+const response2: ServerResponseType<UserType> = {
+    errorCode: 1,
+    messages: ["some", "array"],
+    data: {
+        id: 1,
+        name: "Nurik",
+        status: "string",
+        photos: {
+            small: '21',
+            large: "213"
+        },
+        followed: true,
+    }
+}
+const response1: ServerResponseType<PhotosType> = {
+    errorCode: 1,
+    messages: ["some", "array"],
+    data: {
+        small: '21',
+        large: "213"
+    }
+}
+
+
 

@@ -1,9 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './ProfileInfo.module.css';
 
+type PropsType = {
+    status: string
+    updateStatus: (statis: string) => void
+}
 
-
-const ProfileStatusWithHooks = (props: any) => {
+const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status)
     let activeEditMode = () => {

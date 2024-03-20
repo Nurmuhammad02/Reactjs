@@ -5,12 +5,14 @@ import {useForm} from "react-hook-form"
 import {PostsType} from "../../../Types/types.ts";
 import {ErrorMessage} from "@hookform/error-message";
 
-type PropsType = {
+export type MapPropsType = {
     posts: Array<PostsType>
+}
+export type DispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
-const MyPosts: React.FC<PropsType> = React.memo(props => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = React.memo(props => {
     const {
         register,
         handleSubmit,
@@ -19,9 +21,9 @@ const MyPosts: React.FC<PropsType> = React.memo(props => {
     } = useForm({
         mode: "onBlur"
     });
-    let postsElements = props.posts.map(p => <Post id={p.id} likesCount={p.likesCount} message={p.message} key={p.id}/>)
+    let postsElements = props.posts.map(p => <Post likesCount={p.likesCount} message={p.message} key={p.id}/>)
 
-    const onAddPost = (data) => {
+    const onAddPost = (data: any) => {
         props.addPost(data.newPostText);
         reset();
     }

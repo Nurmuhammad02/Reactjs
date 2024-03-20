@@ -1,18 +1,8 @@
-import {ContactsType, PhotosType, PostsType} from "../Types/types.ts";
+import {ContactsType, PhotosType, PostsType, ProfileType} from "../Types/types.ts";
 import { BaseThunkType, InferActionTypes} from "./redux-store.ts";
 import {profileApi} from "../components/api/profile-api.ts";
 //action type
 //initial data
-
-
-type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-}
 
 let initialState = {
     posts: [
@@ -20,8 +10,7 @@ let initialState = {
         {id: 2, message: 'How is your friend?', likesCount: 11},
     ] as Array<PostsType>,
     profile: null as ProfileType | null,
-    status: "",
-    newPostsText: ""
+    status: ""
 };
 
 type InitialStateType = typeof initialState
@@ -38,7 +27,6 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostsText: ""
             }
         }
         case "SN/PROFILE/SET_USER_PROFILE":

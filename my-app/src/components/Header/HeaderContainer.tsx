@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import {deleteAuthUserData} from '../../redux/auth-reducer.ts';
 
 class HeaderContainer extends React.Component {
-    componentDidMount() {
-    }
-
 
     render() {
         return <Header {...this.props} />

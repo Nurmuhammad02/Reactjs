@@ -14,7 +14,7 @@ type MapStateToPropsType = {
     captchaURL: string | null
 }
 type MapDispatchToPropsType = {
-    logIn: (email: string, password: string, rememberMe: boolean, captcha: string) => void,
+    logIn: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
 type OwnType = {}

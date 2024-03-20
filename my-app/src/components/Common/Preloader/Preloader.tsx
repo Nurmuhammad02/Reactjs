@@ -1,7 +1,9 @@
 import React from 'react';
 import s from '../../Users/Users.module.css';
 
-let Preloader = () => {
+
+
+let Preloader: React.FC = () => {
     return (
         <div className={s.lazyLoading}>
             <div className={s.center_body}>

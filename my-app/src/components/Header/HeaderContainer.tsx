@@ -1,9 +1,10 @@
 import React from 'react';
-import Header from './Header';
+import Header, {DispatchToPropsType, MapStateToPropsType, PropsType} from './Header';
 import {connect} from 'react-redux';
 import {deleteAuthUserData} from '../../redux/auth-reducer.ts';
+import {AppStateType} from "../../redux/redux-store.ts";
 
-class HeaderContainer extends React.Component {
+class HeaderContainer extends React.Component<MapStateToPropsType & DispatchToPropsType> {
 
     render() {
         return <Header {...this.props} />
@@ -11,10 +12,9 @@ class HeaderContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
-
 });
 
-export default connect(mapStateToProps, {deleteAuthUserData})(HeaderContainer);
+export default connect<MapStateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps, {deleteAuthUserData})(HeaderContainer);

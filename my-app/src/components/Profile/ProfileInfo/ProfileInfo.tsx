@@ -5,7 +5,7 @@ import ava from '../../../assets/ava.png'
 import Preloader from '../../Common/Preloader/Preloader';
 // import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-import {ContactsType, PhotosType, ProfileType} from "../../../Types/types.ts";
+import {ProfileType} from "../../../Types/types.ts";
 
 type PropsType = {
     profile: ProfileType

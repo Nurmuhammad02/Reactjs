@@ -2,7 +2,6 @@ import React from 'react';
 // import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {ContactsType, PhotosType} from "../../Types/types.ts";
 
 
 //error for PropsType profile React.FC<PropsType>

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import {useNavigate} from "react-router-dom";
-import {useForm, SubmitHandler} from "react-hook-form"
+import {useForm} from "react-hook-form"
 import {InitialStateType} from "../../redux/dialogs-reducer.ts";
 
 
@@ -17,8 +16,8 @@ const Dialogs: React.FC<PropsType> = (props) => {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: {errors, isValid},
+        // watch,
+        // formState: {errors, isValid},
         reset
     } = useForm({
         mode: "onBlur"
@@ -26,7 +25,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
 
     //с помощью хука useNavigate можно использовать в функциональном компоненте для навигации
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     let state = props.dialogsPage;
 

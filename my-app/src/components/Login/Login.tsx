@@ -2,11 +2,10 @@ import React from 'react';
 import s from "./Login.module.css";
 import {useForm} from "react-hook-form"
 import {connect} from "react-redux";
-import {getCaptchaURL, logIn} from '../../redux/auth-reducer.ts';
+import {logIn} from '../../redux/auth-reducer.ts';
 import {Navigate} from 'react-router-dom';
 import {ErrorMessage} from "@hookform/error-message";
 import {AppStateType} from "../../redux/redux-store.ts";
-import {UserType} from "../../Types/types.ts";
 
 type MapStateToPropsType = {
     errorMessage: string[]

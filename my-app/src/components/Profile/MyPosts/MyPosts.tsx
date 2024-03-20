@@ -1,4 +1,4 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post'
 import {useForm} from "react-hook-form"

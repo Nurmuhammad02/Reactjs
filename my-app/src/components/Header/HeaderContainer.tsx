@@ -1,5 +1,5 @@
 import React from 'react';
-import Header, {DispatchToPropsType, MapStateToPropsType, PropsType} from './Header';
+import Header, {DispatchToPropsType, MapStateToPropsType} from './Header';
 import {connect} from 'react-redux';
 import {deleteAuthUserData} from '../../redux/auth-reducer.ts';
 import {AppStateType} from "../../redux/redux-store.ts";

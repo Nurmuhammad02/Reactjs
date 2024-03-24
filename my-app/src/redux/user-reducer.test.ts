@@ -22,7 +22,10 @@ beforeEach(() => {
         isFetching: true,
         followingInProgress: [], //  Array of userid
         portionSize: 10,
-        currentPage: 1
+        currentPage: 1,
+        filter: {
+            term: ""
+        }
     }
 })
 

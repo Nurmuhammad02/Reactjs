@@ -2,11 +2,14 @@ import React from "react";
 import s from './Users.module.css';
 import Paginator from "../Common/Paginator/Paginator";
 import User from "./User";
+import { UsersValidation} from "./UsersValidation.tsx";
 import {UserType} from "../../Types/types.ts";
+import {FilterType} from "../../redux/users-reducer.ts";
 
-type PropsType = {
+export type PropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
+    onFilterChanged: (filter: FilterType) => void
     pageSize: number
     totalUsersCount: number
     users: Array<UserType>
@@ -15,6 +18,7 @@ type PropsType = {
     followingInProgress: Array<number>
     portionSize: number
 }
+
 let Users: React.FC<PropsType> = ({
                                       currentPage,
                                       onPageChanged,
@@ -30,9 +34,11 @@ let Users: React.FC<PropsType> = ({
     return (<div className={s.users}>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
                        pageSize={pageSize} portionSize={portionSize}/>
+            <UsersValidation  onFilterChanged={props.onFilterChanged} />
             {
-                users.map(u => <User key={u.id} follow={follow} unfollow={unfollow} followingInProgress={followingInProgress}
-                                     user={u} />)
+                users.map(u => <User key={u.id} follow={follow} unfollow={unfollow}
+                                     followingInProgress={followingInProgress}
+                                     user={u}/>)
             }
         </div>
     )

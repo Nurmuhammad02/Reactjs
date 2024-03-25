@@ -11,7 +11,7 @@ type FormType = {
     friend: "false" | "true" | "null"
 }
 
-export const UsersValidation: React.FC<PropsType> = React.memo((props) => {
+export const UsersFormValidation: React.FC<PropsType> = React.memo((props) => {
     const { register, handleSubmit, reset } = useForm<FormType>() // Change to FormType here
     const onSubmit: SubmitHandler<FormType> = (data) => { // Change to FormType here as well
         // Convert string to boolean
@@ -29,7 +29,7 @@ export const UsersValidation: React.FC<PropsType> = React.memo((props) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>First Name</label>
                 <input {...register("term")} />
-                <label>Gender Selection</label>
+                <label>Select a friend</label>
                 <select {...register("friend")}>
                     <option value="null">All</option>
                     <option value="true">Only followed</option>

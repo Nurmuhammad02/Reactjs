@@ -2,7 +2,7 @@ import React from "react";
 import s from './Users.module.css';
 import Paginator from "../Common/Paginator/Paginator";
 import User from "./User";
-import { UsersValidation} from "./UsersValidation.tsx";
+import { UsersFormValidation} from "./UsersFormValidation.tsx";
 import {UserType} from "../../Types/types.ts";
 import {FilterType} from "../../redux/users-reducer.ts";
 
@@ -34,7 +34,7 @@ let Users: React.FC<PropsType> = ({
     return (<div className={s.users}>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
                        pageSize={pageSize} portionSize={portionSize}/>
-            <UsersValidation  onFilterChanged={props.onFilterChanged} />
+            <UsersFormValidation onFilterChanged={props.onFilterChanged} />
             {
                 users.map(u => <User key={u.id} follow={follow} unfollow={unfollow}
                                      followingInProgress={followingInProgress}

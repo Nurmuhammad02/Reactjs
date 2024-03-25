@@ -24,7 +24,8 @@ beforeEach(() => {
         portionSize: 10,
         currentPage: 1,
         filter: {
-            term: ""
+            term: "",
+            friend: null as null | boolean
         }
     }
 })

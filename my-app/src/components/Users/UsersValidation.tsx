@@ -1,15 +1,26 @@
 import React from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {FilterType} from "../../redux/users-reducer.ts";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { FilterType } from "../../redux/users-reducer.ts";
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
 }
 
-export let UsersValidation: React.FC<PropsType> = (props) => {
-    const {register, handleSubmit, reset} = useForm<FilterType>()
-    const onSubmit: SubmitHandler<FilterType> = (data: FilterType) => {
-        props.onFilterChanged(data)
+type FormType = {
+    term: string
+    friend: "false" | "true" | "null"
+}
+
+export const UsersValidation: React.FC<PropsType> = React.memo((props) => {
+    const { register, handleSubmit, reset } = useForm<FormType>() // Change to FormType here
+    const onSubmit: SubmitHandler<FormType> = (data) => { // Change to FormType here as well
+        // Convert string to boolean
+        const isFriendFollowed = data.friend === "true";
+        const newData: FilterType = {
+            ...data,
+            friend: isFriendFollowed
+        };
+        props.onFilterChanged(newData)
         reset()
     }
 
@@ -19,8 +30,13 @@ export let UsersValidation: React.FC<PropsType> = (props) => {
                 <label>First Name</label>
                 <input {...register("term")} />
                 <label>Gender Selection</label>
-                <input type="submit"/>
+                <select {...register("friend")}>
+                    <option value="null">All</option>
+                    <option value="true">Only followed</option>
+                    <option value="false">Only unfollowed</option>
+                </select>
+                <input type="submit" />
             </form>
         </>
     )
-}
+})

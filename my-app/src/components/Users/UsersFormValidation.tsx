@@ -12,15 +12,14 @@ type FormType = {
 }
 
 export const UsersFormValidation: React.FC<PropsType> = React.memo((props) => {
-    const { register, handleSubmit, reset } = useForm<FormType>() // Change to FormType here
-    const onSubmit: SubmitHandler<FormType> = (data) => { // Change to FormType here as well
-        // Convert string to boolean
-        const isFriendFollowed = data.friend === "true";
-        const newData: FilterType = {
-            ...data,
-            friend: isFriendFollowed
-        };
-        props.onFilterChanged(newData)
+    const { register, handleSubmit, reset } = useForm<FormType>()
+    const onSubmit: SubmitHandler<FormType> = (values) => {
+        const filter: FilterType = {
+            term: values.term,
+            friend: values.friend === "null" ? null : values.friend === "true" ? true : false
+        }
+
+        props.onFilterChanged(filter)
         reset()
     }
 

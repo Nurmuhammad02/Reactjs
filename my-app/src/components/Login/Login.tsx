@@ -1,26 +1,20 @@
 import React from 'react';
 import s from "./Login.module.css";
 import {useForm} from "react-hook-form"
-import {connect} from "react-redux";
-import {logIn} from '../../redux/auth-reducer.ts';
+import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from 'react-router-dom';
 import {ErrorMessage} from "@hookform/error-message";
 import {AppStateType} from "../../redux/redux-store.ts";
+import {logIn} from "../../redux/auth-reducer.ts";
 
-type MapStateToPropsType = {
-    errorMessage: string[]
-    isAuth: boolean
-    captchaURL: string | null
-}
-type MapDispatchToPropsType = {
-    logIn: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
 
-type OwnType = {}
+export const Login: React.FC = (props) => {
+    const captchaURL = useSelector((state: AppStateType) => state.auth.captchaURL);
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+    const errorMessage = useSelector((state: AppStateType) => state.auth.errorMessage);
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnType
+    const dispatch = useDispatch();
 
-const Login: React.FC<PropsType> = ({errorMessage, logIn, isAuth, captchaURL}) => {
     const {
         register,
         handleSubmit,
@@ -31,7 +25,8 @@ const Login: React.FC<PropsType> = ({errorMessage, logIn, isAuth, captchaURL}) =
     });
 
     const onLogIn = (data: any) => {
-        logIn(data.email, data.password, data.rememberMe, data.captcha);
+        //@ts-ignore
+        dispatch(logIn(data.email, data.password, data.rememberMe, data.captcha))
         reset()
     }
     if (isAuth) {
@@ -84,12 +79,3 @@ const Login: React.FC<PropsType> = ({errorMessage, logIn, isAuth, captchaURL}) =
         </div>
     )
 }
-
-
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    isAuth: state.auth.isAuth,
-    errorMessage: state.auth.errorMessage,
-    captchaURL: state.auth.captchaURL
-})
-
-export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnType, AppStateType>(mapStateToProps, {logIn})(Login);

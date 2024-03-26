@@ -3,9 +3,8 @@ import React, {Suspense} from 'react';
 import Navbar from './components/Navbar/Navbar';
 import {Route, Routes, Navigate, BrowserRouter} from 'react-router-dom';
 
-
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import {Login} from './components/Login/Login';
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer.ts";

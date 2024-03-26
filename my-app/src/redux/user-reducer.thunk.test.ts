@@ -1,4 +1,4 @@
-import {actions, follow, unfollow} from "./users-reducer.ts";
+import {actions, followThunk, unfollowThunk} from "./users-reducer.ts";
 import {usersApi} from "../components/api/users-api.ts";
 import {ResponseType, ResultCodesEnum} from "../components/api/api.ts";
 
@@ -27,7 +27,7 @@ const result: ResponseType = {
 userApiMock.follow.mockReturnValue(Promise.resolve(result));
 
 test("",  async () => {
-    const thunk = unfollow(1);
+    const thunk = unfollowThunk(1);
 
 
 

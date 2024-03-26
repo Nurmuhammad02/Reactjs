@@ -5,13 +5,12 @@ import User from "./User";
 import { UsersFormValidation} from "./UsersFormValidation.tsx";
 import {UserType} from "../../Types/types.ts";
 import {FilterType} from "../../redux/users-reducer.ts";
+import {useSelector} from "react-redux";
+import {getCurrentPage, getPageSize, getTotalUsersCount} from "../../redux/users-selectors.ts";
 
 export type PropsType = {
-    currentPage: number
     onPageChanged: (pageNumber: number) => void
     onFilterChanged: (filter: FilterType) => void
-    pageSize: number
-    totalUsersCount: number
     users: Array<UserType>
     unfollow: (userId: number) => void
     follow: (userId: number) => void
@@ -20,10 +19,7 @@ export type PropsType = {
 }
 
 let Users: React.FC<PropsType> = ({
-                                      currentPage,
                                       onPageChanged,
-                                      pageSize,
-                                      totalUsersCount,
                                       users,
                                       unfollow,
                                       follow,
@@ -31,6 +27,11 @@ let Users: React.FC<PropsType> = ({
                                       portionSize,
                                       ...props
                                   }) => {
+
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+
     return (<div className={s.users}>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
                        pageSize={pageSize} portionSize={portionSize}/>

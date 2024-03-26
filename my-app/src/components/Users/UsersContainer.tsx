@@ -63,9 +63,6 @@ class UsersContainer extends React.Component<PropsType> {
                 <Preloader/>
                 : null}
             <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
                 onFilterChanged={this.onFilterChanged}
                 users={this.props.users}

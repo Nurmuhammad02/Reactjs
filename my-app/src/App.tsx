@@ -23,22 +23,24 @@ type MapDispatchToPropsType = {
 
 class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
 
-    //catch all errors in project
-    // catchAllUnhandleError = (e: PromiseRejectionEvent) => {
-    //     alert("Some Error")
-    // }
+    // catch all errors in project
+    catchAllUnhandleError = (e: PromiseRejectionEvent) => {
+        alert("Some Error")
+    }
 
     componentDidMount() {
         this.props.initializeApp();
-        // window.addEventListener("unhandledrejection", this.catchAllUnhandleError)
+        window.addEventListener("unhandledrejection", this.catchAllUnhandleError)
     }
 
     // delete  event
-    // componentWillUnmount() {
-    //     window.removeEventListener("unhandledrejection", this.catchAllUnhandleError)
-    // }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandleError)
+    }
 
     render() {
+
+
         if (!this.props.initialized) {
             return <Preloader/>
         } else {

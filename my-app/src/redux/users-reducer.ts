@@ -42,7 +42,7 @@ const usersReducer = (state = initialState, action: ActionsType): InitialStateTy
         case 'SN/USERS/SET_USERS':
             return {...state, users: action.users}
         case 'SN/USERS/SET_CURRENT_PAGE':
-            return {...state, page: action.page}
+            return {...state, currentPage: action.page}
         case 'SN/USERS/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.count}
         case 'SN/USERS/TOGGLE_IS_FETCHING':

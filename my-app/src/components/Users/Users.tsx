@@ -12,11 +12,9 @@ import {
     getUsers,
     getUsersFilter
 } from "../../redux/users-selectors.ts";
+import {useNavigate} from "react-router-dom";
 
-
-
-export type PropsType = {
-}
+export type PropsType = {}
 
 export const Users: React.FC<PropsType> = (props) => {
 
@@ -28,11 +26,18 @@ export const Users: React.FC<PropsType> = (props) => {
     const followingInProgress = useSelector(getFollowingInProgress)
     const portionSize = useSelector(getPortionSize)
 
-
-
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
+        navigate({pathname: '/users', search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`})
+    }, [filter, currentPage]);
+
+
+    useEffect(() => {
+
+
+
         // @ts-ignore
         dispatch(requestUsers(currentPage, pageSize, filter))
     }, [])

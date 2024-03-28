@@ -20,9 +20,7 @@ const HeaderApp: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const logOutCallback = () => {
-
-        // @ts-ignore
-        dispatch(logout())
+        dispatch(logout() as any)
     }
     return (
         <Header className={s.header}>

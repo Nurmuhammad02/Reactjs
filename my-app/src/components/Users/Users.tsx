@@ -52,8 +52,8 @@ export const Users: React.FC<PropsType> = (props) => {
                 break;
             default:
         }
-        // @ts-ignore
-        dispatch(requestUsers(actualPage, pageSize, actualFilter))
+
+        dispatch(requestUsers(actualPage, pageSize, actualFilter) as any)
     }, [])
 
     useEffect(() => {
@@ -67,21 +67,17 @@ export const Users: React.FC<PropsType> = (props) => {
     }, [filter, currentPage]);
 
     const onPageChanged = (pageNumber: number) => {
-        // @ts-ignore
-        dispatch(requestUsers(pageNumber, pageSize, filter))
+        dispatch(requestUsers(pageNumber, pageSize, filter) as any)
     }
     const onFilterChanged = (filter: FilterType) => {
-        // @ts-ignore
-        dispatch(requestUsers(1, pageSize, filter))
+        dispatch(requestUsers(1, pageSize, filter) as any)
     }
 
     const follow = (userId: number) => {
-        // @ts-ignore
-        dispatch(followThunk(userId))
+        dispatch(followThunk(userId) as any)
     }
     const unfollow = (userId: number) => {
-        // @ts-ignore
-        dispatch(unfollowThunk(userId))
+        dispatch(unfollowThunk(userId) as any)
     }
 
     return (<div className={s.users}>

@@ -90,10 +90,10 @@ export const logIn = (email: string, password: string, rememberMe: boolean, capt
     let loginData = await authApi.logIn(email, password, rememberMe, captcha)
     if (loginData.resultCode === ResultCodesEnum.Success) {
         // success , get auth data
-        dispatch(getAuthUserData())
+        await dispatch(getAuthUserData())
     } else {
         if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
-            dispatch(getCaptchaURL())
+            await dispatch(getCaptchaURL())
         }
         let message: any = loginData.messages.length > 0 ? loginData.messages[0] : "Some error";
         dispatch(actions.setErrorMessage(message))
@@ -106,5 +106,3 @@ export default authReducer;
 type InitialStateType = typeof initialState
 type ActionsType = InferActionTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsType>
-type GetStateType = () => AppStateType;
-type DispatchType = Dispatch<ActionsType>;

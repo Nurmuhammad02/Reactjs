@@ -1,21 +1,17 @@
 import React from 'react';
 import s from './Header.module.css';
-import {Link, NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Avatar from "antd/es/avatar/avatar";
 
 import {Button, Col, Layout, Menu, Row} from "antd";
-import {Header} from "antd/es/layout/layout";
 import {useDispatch, useSelector} from "react-redux";
-import {getAuthUserData, logout} from "../../redux/auth-reducer.ts";
+import { logout} from "../../redux/auth-reducer.ts";
 import {selectCurrentUserLogin, selectIsAuth} from "../../redux/auth-selectors.ts";
 
 
 export type PropsType = {}
 
 const HeaderApp: React.FC<PropsType> = (props) => {
-    // let logOut = () => {
-    //     props.deleteAuthUserData();
-    // }
 
     const isAuth = useSelector(selectIsAuth)
     const login = useSelector(selectCurrentUserLogin)
@@ -68,35 +64,3 @@ const HeaderApp: React.FC<PropsType> = (props) => {
 
 export default HeaderApp;
 
-{/*<div className={s.menu}>*/
-}
-{/*    <div className={s.menu__links}>*/
-}
-{/*        <li className={s.menu__link}>*/
-}
-{/*            <NavLink to="#"> Menu </NavLink>*/
-}
-{/*        </li>*/
-}
-{/*        <li className={s.menu__link}>*/
-}
-{/*            <NavLink to="#"> Communities </NavLink>*/
-}
-{/*        </li>*/
-}
-{/*        <li className={s.menu__link}>*/
-}
-{/*            <NavLink to="#"> Reference </NavLink>*/
-}
-{/*        </li>*/
-}
-{/*        <li className={s.menu__link}>*/
-}
-{/*            <NavLink to="#"> Support </NavLink>*/
-}
-{/*        </li>*/
-}
-{/*    </div>*/
-}
-{/*</div>*/
-}

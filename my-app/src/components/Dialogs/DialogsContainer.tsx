@@ -14,17 +14,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
 export default withAuthRedirect(connect(mapStateToProps, {
-    // sendMessage: actions.sendMessage
     ...actions
 })(Dialogs));
-
-
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         sendMessage: (newMessageBody) => {
-//             dispatch(actions.sendMessage(newMessageBody))
-//         },
-//     }
-// }

@@ -1,21 +1,19 @@
 import './App.css';
 import React from 'react';
-import {Route, Routes, Navigate, BrowserRouter, NavLink, Link} from 'react-router-dom';
+import {Route, Routes, Navigate, BrowserRouter, Link} from 'react-router-dom';
 
 import {Login} from './components/Login/Login';
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer.ts";
-import Preloader from "./components/Common/Preloader/Preloader";
 import store, {AppStateType} from './redux/redux-store';
 import {withSuspense} from "./hoc/withSuspense.tsx";
 import {UsersPage} from "./components/Users/UsersContainer.tsx";
 import {Breadcrumb, Layout, Menu} from 'antd';
-import {Content, Footer, Header} from 'antd/es/layout/layout';
+import {Content, Footer} from 'antd/es/layout/layout';
 import Sider from "antd/es/layout/Sider";
-import s from "./components/Navbar/Navbar.module.css";
 import SubMenu from "antd/es/menu/SubMenu";
-import Icon, {TeamOutlined, UserOutlined} from "@ant-design/icons";
+import {TeamOutlined, UserOutlined} from "@ant-design/icons";
 import HeaderApp from "./components/Header/Header.tsx";
 
 
@@ -49,11 +47,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
 
         return (
             <div>
-
-
                 <Layout>
-
-
                     <HeaderApp/>
                     <Content
                         style={{
@@ -69,21 +63,14 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
                             <Breadcrumb.Item>List</Breadcrumb.Item>
                             <Breadcrumb.Item>App</Breadcrumb.Item>
                         </Breadcrumb>
-                        <Layout
-                            style={{
-                                padding: '24px 0',
-
-                            }}
-                        >
+                        <Layout style={{}}>
                             <Sider style={{borderRadius: '8px', overflow: 'hidden'}}>
-
                                 <Menu
                                     defaultSelectedKeys={['1']}
                                     defaultOpenKeys={['sub1']}
                                     mode="inline"
                                     theme="dark"
                                 >
-
                                     <SubMenu title={<span><UserOutlined/><span>Profile</span></span>}>
                                         <Menu.Item key={1}>
                                             <Link to='/profile'>Profile</Link>

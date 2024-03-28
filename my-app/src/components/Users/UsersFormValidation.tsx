@@ -3,6 +3,8 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {FilterType} from "../../redux/users-reducer.ts";
 import {useSelector} from "react-redux";
 import {getUsersFilter} from "../../redux/users-selectors.ts";
+import {Button, Tooltip} from "antd";
+import {SearchOutlined} from "@ant-design/icons";
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
@@ -21,7 +23,7 @@ export const UsersFormValidation: React.FC<PropsType> = React.memo((props) => {
         defaultValues: {
             term: filterSelector.term,
             friend: String(filterSelector.friend) as FriendType
-         }
+        }
     })
 
 
@@ -36,16 +38,22 @@ export const UsersFormValidation: React.FC<PropsType> = React.memo((props) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label>First Name</label>
-                <input {...register("term")} />
-                <label>Select a friend</label>
-                <select {...register("friend")}>
-                    <option value="null">All</option>
-                    <option value="true">Only followed</option>
-                    <option value="false">Only unfollowed</option>
-                </select>
-                <input type="submit"/>
+            <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', alignItems: 'center' ,gap: '10px'}}>
+                <div>
+                    <label>First Name</label>
+                    <input {...register("term")} />
+                </div>
+                <div>
+                    <label>Select a friend</label>
+                    <select {...register("friend")}>
+                        <option value="null">All</option>
+                        <option value="true">Only followed</option>
+                        <option value="false">Only unfollowed</option>
+                    </select>
+                </div>
+                <Tooltip title="search">
+                    <Button htmlType="submit" type="primary" shape="circle" icon={<SearchOutlined/>}/>
+                </Tooltip>
             </form>
         </>
     )

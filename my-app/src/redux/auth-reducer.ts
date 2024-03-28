@@ -75,7 +75,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
         dispatch(actions.setAuthUserData(id, email, login, true));
     }
 }
-export const deleteAuthUserData = (): ThunkType => async (dispatch) => {
+export const logout = (): ThunkType => async (dispatch) => {
     let res = await authApi.logOut();
     if (res.data.resultCode === ResultCodesEnum.Error) {
         dispatch(actions.setAuthLogOut(null, null, null, false));

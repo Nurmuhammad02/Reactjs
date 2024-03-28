@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://nurmuhammad02.github.io/Reactjs/my-app",
   "dependencies": {
+    "@ant-design/icons": "^5.3.5",
     "@hookform/error-message": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

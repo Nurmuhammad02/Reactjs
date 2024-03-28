@@ -1,9 +1,7 @@
 import './App.css';
-import React, {Suspense} from 'react';
-import Navbar from './components/Navbar/Navbar';
-import {Route, Routes, Navigate, BrowserRouter} from 'react-router-dom';
+import React from 'react';
+import {Route, Routes, Navigate, BrowserRouter, NavLink, Link} from 'react-router-dom';
 
-import HeaderContainer from './components/Header/HeaderContainer';
 import {Login} from './components/Login/Login';
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -12,6 +10,14 @@ import Preloader from "./components/Common/Preloader/Preloader";
 import store, {AppStateType} from './redux/redux-store';
 import {withSuspense} from "./hoc/withSuspense.tsx";
 import {UsersPage} from "./components/Users/UsersContainer.tsx";
+import {Breadcrumb, Layout, Menu} from 'antd';
+import {Content, Footer, Header} from 'antd/es/layout/layout';
+import Sider from "antd/es/layout/Sider";
+import s from "./components/Navbar/Navbar.module.css";
+import SubMenu from "antd/es/menu/SubMenu";
+import Icon, {TeamOutlined, UserOutlined} from "@ant-design/icons";
+import HeaderApp from "./components/Header/Header.tsx";
+
 
 const DialogsContainer = withSuspense(React.lazy(() => import("./components/Dialogs/DialogsContainer")));
 const ProfileContainer = withSuspense(React.lazy(() => import("./components/Profile/ProfileContainer")));
@@ -20,6 +26,7 @@ type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = {
     initializeApp: () => void
 }
+
 
 class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
 
@@ -40,32 +47,124 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
 
     render() {
 
+        return (
+            <div>
 
-        if (!this.props.initialized) {
-            return <Preloader/>
-        } else {
-            return (
-                <div className='app-wrapper'>
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className='app-wrapper-content'>
-                        <Routes>
-                            <Route path='/dialogs' element={
-                                <DialogsContainer/>
-                            }/>
-                            <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                            <Route path='/profile' element={
-                                <ProfileContainer/>
-                            }/>
-                            <Route path='/users' element={<UsersPage/>}/>
-                            <Route path='/' element={<Navigate to="/profile" replace/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='*' element={<div>404 NOT FOUND</div>}/>
-                        </Routes>
-                    </div>
-                </div>
-            );
-        }
+
+                <Layout>
+
+
+                    <HeaderApp/>
+                    <Content
+                        style={{
+                            padding: '0 48px',
+                        }}
+                    >
+                        <Breadcrumb
+                            style={{
+                                margin: '16px 0',
+                            }}
+                        >
+                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>List</Breadcrumb.Item>
+                            <Breadcrumb.Item>App</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <Layout
+                            style={{
+                                padding: '24px 0',
+
+                            }}
+                        >
+                            <Sider style={{borderRadius: '8px', overflow: 'hidden'}}>
+
+                                <Menu
+                                    defaultSelectedKeys={['1']}
+                                    defaultOpenKeys={['sub1']}
+                                    mode="inline"
+                                    theme="dark"
+                                >
+
+                                    <SubMenu title={<span><UserOutlined/><span>Profile</span></span>}>
+                                        <Menu.Item key={1}>
+                                            <Link to='/profile'>Profile</Link>
+                                        </Menu.Item>
+                                        <Menu.Item key={2}>
+                                            <Link to='/dialogs'>Messages</Link>
+                                        </Menu.Item>
+                                        <Menu.Item key={3}>
+                                            <Link to='/developers'>Developers</Link>
+                                        </Menu.Item>
+                                        <Menu.Item key={4}>
+                                            <Link to='/news'>News</Link>
+                                        </Menu.Item>
+                                    </SubMenu>
+                                    <SubMenu title={<span><TeamOutlined/><span>Developers</span></span>}>
+                                        <Menu.Item key={1}>
+                                            <Link to='/profile'>Profile</Link>
+                                        </Menu.Item>
+                                    </SubMenu>
+                                </Menu>
+                            </Sider>
+                            <Content
+                                style={{
+                                    margin: '0 48px',
+                                    borderRadius: '8px',
+                                    overflow: 'hidden',
+                                    background: 'white'
+                                }}>
+                                <Routes>
+                                    <Route path='/dialogs' element={
+                                        <DialogsContainer/>
+                                    }/>
+                                    <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                                    <Route path='/profile' element={
+                                        <ProfileContainer/>
+                                    }/>
+                                    <Route path='/developers' element={<UsersPage/>}/>
+                                    <Route path='/' element={<Navigate to="/profile" replace/>}/>
+                                    <Route path='/login' element={<Login/>}/>
+                                    <Route path='*' element={<div>404 NOT FOUND</div>}/>
+                                </Routes>
+                            </Content>
+                        </Layout>
+                    </Content>
+                    <Footer
+                        style={{
+                            textAlign: 'center',
+                        }}
+                    >
+                        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+                    </Footer>
+                </Layout>
+            </div>
+        )
+
+
+        // if (!this.props.initialized) {
+        //     return <Preloader/>
+        // } else {
+        //     return (
+        //         <div className='app-wrapper'>
+        //             <HeaderContainer/>
+        //             <Navbar/>
+        //             <div className='app-wrapper-content'>
+        //                 <Routes>
+        //                     <Route path='/dialogs' element={
+        //                         <DialogsContainer/>
+        //                     }/>
+        //                     <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+        //                     <Route path='/profile' element={
+        //                         <ProfileContainer/>
+        //                     }/>
+        //                     <Route path='/users' element={<UsersPage/>}/>
+        //                     <Route path='/' element={<Navigate to="/profile" replace/>}/>
+        //                     <Route path='/login' element={<Login/>}/>
+        //                     <Route path='*' element={<div>404 NOT FOUND</div>}/>
+        //                 </Routes>
+        //             </div>
+        //         </div>
+        //     );
+        // }
     }
 }
 

@@ -63,7 +63,7 @@ export const Users: React.FC<PropsType> = (props) => {
         if (filter.friend == null) query.friend = String(filter.friend)
         if (currentPage !== 1) query.page = String(currentPage)
 
-        navigate({pathname: '/users', search: queryString.stringify(query)})
+        navigate({pathname: '/developers', search: queryString.stringify(query)})
     }, [filter, currentPage]);
 
     const onPageChanged = (pageNumber: number) => {

@@ -1,17 +1,21 @@
 .header {
   grid-area: h;
   height: 70px;
-  border-radius: 50px;
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-left: 40px;
 }
 .header img {
   max-width: 130px; 
   max-height: 50px;
   object-position: center;
   object-fit: cover;
+}
+
+.header__row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .menu {
@@ -30,7 +34,7 @@
 }
 .menu__link a{
   font-weight: 500;
-  color: #2E363E;
+  color: #ffff;
   text-decoration: none;
 }
 
@@ -56,16 +60,22 @@
 .trueLogin {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 .logout {
   background: #0077ff;
+  border: none;
   outline: none;
-  border: 1px white solid;
   border-radius: 5px;
   height: 30px;
   width: 80px;
   color: white;
   font-weight: 500;
   cursor: pointer;
+}
+
+.loginTrue__withAvatar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

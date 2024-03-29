@@ -2,15 +2,11 @@ import React, {useEffect, useState} from "react";
 
 import {Button, Col} from "antd";
 import {Input} from 'antd';
+import {ChatMessageType} from "../../components/api/chat-api.ts";
 
 const {TextArea} = Input;
 
-type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
+
 
 export const ChatPage: React.FC = () => {
     return <div style={{padding: '20px'}}>

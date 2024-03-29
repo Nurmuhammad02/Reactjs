@@ -65,7 +65,9 @@ body {
     /* Non-prefixed version, currently
                            not supported by any browser */
 }
-
+html {
+    height: 100%;
+}
 
 .app-wrapper {
     margin: 0 auto;

@@ -1,12 +1,7 @@
 import {securityApi} from "../components/api/security-api.ts";
-import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store.ts";
-import {Action, Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
+import { BaseThunkType, InferActionTypes} from "./redux-store.ts";
 import {authApi} from "../components/api/auth-api.ts";
 import {ResultCodesEnum, ResultCodeForCaptcha} from "../components/api/api.ts";
-
-//action type
-//initial data
 
 
 let initialState = {
@@ -20,7 +15,6 @@ let initialState = {
 };
 
 
-//actions
 const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'SN/AUTH/SET_USER_DATA':
@@ -47,7 +41,7 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
             return state;
     }
 }
-//action creator
+
 export const actions = {
     setAuthUserData: (userId: number, email: string, login: string, isAuth: boolean) => ({
         type: 'SN/AUTH/SET_USER_DATA',
@@ -63,10 +57,6 @@ export const actions = {
         payload: {captchaURL}
     } as const)
 }
-
-
-//thunk-reducer
-
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let meData = await authApi.me();

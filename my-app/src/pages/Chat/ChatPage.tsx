@@ -3,9 +3,11 @@ import React, {useEffect, useState} from "react";
 import {Button, Col} from "antd";
 import {Input} from 'antd';
 import {ChatMessageType} from "../../components/api/chat-api.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {sendMessage, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer.ts";
+import {AppStateType} from "../../redux/redux-store.ts";
 
 const {TextArea} = Input;
-
 
 
 export const ChatPage: React.FC = () => {
@@ -14,59 +16,31 @@ export const ChatPage: React.FC = () => {
     </div>
 }
 export const Chat: React.FC = () => {
-    const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        let ws: WebSocket;
-        const closeHandler = () => {
-            console.log('CLOSE WS')
-            setTimeout(createChannel, 3000)
-        };
-
-        function createChannel() {
-            ws?.removeEventListener('close', closeHandler)
-            ws?.close()
-            ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx");
-            console.log(ws)
-            ws.addEventListener('close', closeHandler)
-            setWsChannel(ws)
-        }
-
-        createChannel()
-
+        dispatch(startMessagesListening() as any)
         return () => {
-            ws.removeEventListener('close', closeHandler)
-            ws.close()
+            dispatch(stopMessagesListening() as any)
         }
     }, []);
 
 
     return <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-        <Messages wsChannel={wsChannel}/>
-        <AddMessageForm wsChannel={wsChannel}/>
+        <Messages/>
+        <AddMessageForm/>
     </div>
 }
-export const Messages: React.FC<{ wsChannel: WebSocket | null }> = ({wsChannel}) => {
-    const [messages, setMessages] = useState<ChatMessageType>([])
-
-    useEffect(() => {
-        let messageHandler = (e: MessageEvent) => {
-            const newMessages = JSON.parse(e.data);
-            //@ts-ignore
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        };
-        wsChannel?.addEventListener('message', messageHandler)
-        return () => {
-            wsChannel?.removeEventListener('message', messageHandler)
-        }
-    }, [wsChannel]);
+export const Messages: React.FC = (props) => {
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
 
     return <div style={{height: '500px', overflow: 'auto'}}>
         <div>Messages</div>
-
-        {messages.map((m, index) => {
-            return <Message key={index} message={m}/>
-        })}
+        {//@ts-ignore
+            messages.map((m, index) => {
+                return <Message key={index} message={m}/>
+            })}
     </div>
 }
 export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
@@ -81,35 +55,27 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
         </div>
     </div>
 }
-export const AddMessageForm: React.FC<{ wsChannel: WebSocket | null }> = ({wsChannel}) => {
-    const [message, setMessage] = useState<ChatMessageType>('')
+export const AddMessageForm: React.FC = () => {
+    const [message, setMessage] = useState('')
     const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
 
-    useEffect(() => {
-        let openHandler = () => {
-            setReadyStatus('ready')
-        };
-        wsChannel?.addEventListener('open', openHandler)
-        return () => {
-            wsChannel?.removeEventListener('open', openHandler)
-        }
-    }, [wsChannel]);
+    const dispatch = useDispatch()
 
-    const sendMessage = () => {
+    const sendMessageHandler = () => {
 
         if (!message) return
-
-        wsChannel?.send(message)
+        dispatch(sendMessage(message) as any)
         setMessage('')
     }
 
     return <div style={{gap: '20px'}}>
         <Col>
-            <TextArea onChange={(e) => setMessage(e.currentTarget.value)} value={message} rows={4}
+            <TextArea onChange={(e) => setMessage(//@ts-ignore
+                e.currentTarget.value)} value={message} rows={4}
                       style={{width: '300px'}}/>
         </Col>
         <Col style={{marginBlock: '20px'}}>
-            <Button disabled={wsChannel == null || readyStatus !== 'ready'} onClick={sendMessage}>Отправить</Button>
+            <Button disabled={false} onClick={sendMessageHandler}>Отправить</Button>
         </Col>
     </div>
 }

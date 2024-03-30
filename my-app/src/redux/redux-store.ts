@@ -7,6 +7,7 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer.ts";
 import {thunk, ThunkAction} from "redux-thunk";
 import appReducer from "./app-reducer.ts";
+import chatReducer from "./chat-reducer.ts";
 
 
 //rootReducer for get redux-store
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
+    chat: chatReducer
 });
 
 
